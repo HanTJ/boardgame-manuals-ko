@@ -5,6 +5,7 @@
 ## 등록된 게임
 
 - [Tacoloco](./games/tacoloco/) — Helvetiq, 2025
+- [Monopoly Deal](./games/monopoly-deal/) — Hasbro, B0965 계열 영문판
 
 ## 디렉터리 구조
 
@@ -13,7 +14,9 @@
 ├── index.html                 # 매뉴얼 목록
 ├── styles.css                 # 공통 디자인 및 인쇄 스타일
 └── games/
-    └── tacoloco/
+    ├── tacoloco/
+    │   └── index.html
+    └── monopoly-deal/
         └── index.html         # 게임별 한국어 매뉴얼
 ```
 
