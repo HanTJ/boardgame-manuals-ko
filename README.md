@@ -6,6 +6,7 @@
 
 - [Tacoloco](./games/tacoloco/) — Helvetiq, 2025
 - [Monopoly Deal](./games/monopoly-deal/) — Hasbro, B0965 계열 영문판
+- [In a Grove: Revised Edition](./games/in-a-grove/) — Oink Games, 2021 개정판
 
 ## 디렉터리 구조
 
@@ -16,7 +17,9 @@
 └── games/
     ├── tacoloco/
     │   └── index.html
-    └── monopoly-deal/
+    ├── monopoly-deal/
+    │   └── index.html
+    └── in-a-grove/
         └── index.html         # 게임별 한국어 매뉴얼
 ```
 
