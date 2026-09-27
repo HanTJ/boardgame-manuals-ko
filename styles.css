@@ -155,64 +155,23 @@ details p { padding: 0 0 20px; color: var(--muted); }
   .print-button { width: auto; padding: 0 18px; }
 }
 @media (max-width: 620px) {
-  body { font-size: 15px; line-height: 1.65; }
-  .site-header { width: min(calc(100% - 28px), var(--content)); min-height: 62px; }
-  .brand { gap: 9px; font-size: 14px; }
-  .brand-mark { width: 32px; height: 32px; font-size: 12px; }
+  .site-header { width: min(calc(100% - 28px), var(--content)); }
   .header-note { display: none; }
   .catalog-shell, .manual-hero-inner, .manual-layout, .site-footer { width: min(calc(100% - 28px), var(--content)); }
-  .catalog-shell { padding: 48px 0 78px; }
-  .catalog-intro h1 { font-size: clamp(38px, 12vw, 52px); line-height: 1.06; }
-  .catalog-intro > p:last-child { margin-top: 22px; font-size: 16px; }
-  .manual-list { margin-top: 58px; }
-  .manual-row { grid-template-columns: 38px 1fr 24px; gap: 8px; min-height: 130px; }
+  .catalog-shell { padding-top: 64px; }
+  .manual-list { margin-top: 70px; }
+  .manual-row { grid-template-columns: 46px 1fr 28px; gap: 10px; min-height: 150px; }
   .manual-row:hover { padding: 0; }
-  .manual-copy h3 { font-size: 30px; }
-  .manual-copy p { font-size: 13px; }
-  .manual-arrow { font-size: 24px; }
-  .site-footer { display: block; padding: 20px 0 32px; }
+  .site-footer { display: block; }
   .site-footer p + p { margin-top: 6px; }
-
-  .manual-hero-inner { padding: 32px 0 48px; }
-  .game-kicker { margin-top: 38px; font-size: 11px; letter-spacing: .11em; }
-  .manual-hero h1 { font-size: clamp(52px, 18vw, 72px); line-height: .9; }
-  .hero-summary { margin-top: 22px; font-size: 17px; line-height: 1.55; }
-  .game-facts { gap: 7px; margin-top: 24px; }
-  .game-facts li { padding: 6px 10px; font-size: 11px; }
-  .manual-hero::after { width: 250px; height: 250px; right: -90px; bottom: -150px; border-width: 42px; }
-
-  .manual-layout { padding: 36px 0 72px; }
-  .toc { padding-bottom: 24px; }
-  .toc-title { margin-bottom: 10px; }
-  .toc nav { gap: 6px; }
-  .toc a { padding: 7px 11px; font-size: 12px; }
-  .print-button { min-height: 40px; margin-top: 14px; font-size: 12px; }
-
-  .turn-flow { grid-template-columns: 1fr; gap: 7px; margin: 22px 0; }
-  .flow-arrow { transform: rotate(90deg); justify-self: center; line-height: 1; }
-  .flow-card { padding: 14px 16px; }
-  .outcome { grid-template-columns: 56px 1fr; gap: 12px; padding: 15px; }
-  .outcome-code { font-size: 20px; }
-  .component-grid { grid-template-columns: 1fr 1fr; }
-  .component { min-height: 84px; padding: 15px; }
-  .component strong { font-size: 21px; }
-  .component span { margin-top: 6px; font-size: 12px; }
-  .rule-section { padding-bottom: 48px; }
-  .rule-section + .rule-section { padding-top: 48px; }
-  .rule-section h2 { margin-bottom: 17px; font-size: 28px; line-height: 1.2; }
-  .rule-section h3 { margin-top: 26px; font-size: 18px; }
-  .lead { font-size: 17px; }
-  .steps { margin-top: 22px; }
-  .steps li { padding-left: 50px; padding-bottom: 22px; }
-  .steps li::before { width: 32px; height: 32px; font-size: 13px; }
-  .steps li:not(:last-child)::after { left: 15px; top: 36px; }
-  .special-card { padding: 21px 18px; }
-  .special-card h3 { margin-top: 6px; font-size: 23px; }
-  .callout { margin: 20px 0; padding: 18px; }
-  .number-card { width: 48px; height: 66px; font-size: 20px; }
-  summary { padding: 17px 26px 17px 0; font-size: 14px; }
-  details p { font-size: 14px; }
-  .source-box { padding: 19px; }
+  .game-kicker { margin-top: 58px; }
+  .manual-hero-inner { padding-bottom: 64px; }
+  .turn-flow { grid-template-columns: 1fr; }
+  .flow-arrow { transform: rotate(90deg); justify-self: center; }
+  .outcome { grid-template-columns: 64px 1fr; padding: 17px; }
+  .component-grid { grid-template-columns: 1fr; }
+  .rule-section { padding-bottom: 56px; }
+  .rule-section + .rule-section { padding-top: 56px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
