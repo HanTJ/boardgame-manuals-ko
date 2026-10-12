@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#c92d37">
+  <meta name="description" content="Monopoly Deal을 컴퓨터 플레이어와 혼자 즐기는 비공식 웹 게임">
+  <title>Monopoly Deal 혼자 플레이 | 보드게임 한국어 매뉴얼</title>
+  <link rel="stylesheet" href="./game.css?v=1.0.0">
+</head>
+<body>
+  <header class="game-header">
+    <a href="../" class="back-link">← 한국어 규칙</a>
+    <a href="../../../" class="archive-link">Boardgame Manuals KO</a>
+  </header>
+
+  <main>
+    <section id="start-screen" class="start-screen" aria-labelledby="game-title">
+      <div class="title-lockup">
+        <p>SOLO WEB GAME · UNOFFICIAL</p>
+        <h1 id="game-title"><span>MONOPOLY</span><strong>DEAL</strong></h1>
+        <p class="start-copy">부동산을 모으고 임대료를 받으며 컴퓨터와 거래하세요. 서로 다른 색의 완성 세트 3개를 먼저 만들면 승리합니다.</p>
+      </div>
+      <div class="setup-panel">
+        <fieldset>
+          <legend>컴퓨터 난이도</legend>
+          <label class="difficulty-option">
+            <input type="radio" name="difficulty" value="easy">
+            <span><b>쉬움</b><small>가능한 행동을 넓게 고르고 방어 판단이 느슨합니다.</small></span>
+          </label>
+          <label class="difficulty-option selected">
+            <input type="radio" name="difficulty" value="normal" checked>
+            <span><b>보통</b><small>세트 완성과 수입을 함께 고려해 행동합니다.</small></span>
+          </label>
+          <label class="difficulty-option">
+            <input type="radio" name="difficulty" value="hard">
+            <span><b>어려움</b><small>완성 세트와 강탈 액션을 일관되게 우선합니다.</small></span>
+          </label>
+        </fieldset>
+        <button id="start-button" class="primary-button" type="button">게임 시작</button>
+        <p class="setup-note">공식 B0965의 2인 규칙과 106장 게임 덱을 사용합니다.</p>
+      </div>
+    </section>
+
+    <section id="game-screen" class="game-screen" hidden aria-label="Monopoly Deal 게임판">
+      <div class="status-bar">
+        <div class="status-player"><span>컴퓨터</span><strong id="computer-summary">0세트 · 0M</strong></div>
+        <div class="turn-status"><small id="difficulty-label">보통</small><strong id="turn-label">내 차례</strong><span>남은 행동 <b id="plays-left">3</b> · 덱 <b id="deck-count">94</b></span></div>
+        <div class="status-player human-status"><span>나</span><strong id="human-summary">0세트 · 0M</strong></div>
+      </div>
+
+      <section class="player-board opponent-board" aria-labelledby="computer-title">
+        <div class="area-heading"><h2 id="computer-title">컴퓨터</h2><span id="ai-thinking" class="thinking" hidden>생각하는 중…</span></div>
+        <div id="computer-hand" class="hidden-hand" aria-label="컴퓨터의 숨겨진 손패"></div>
+        <div class="public-zone">
+          <div><h3>은행</h3><div id="computer-bank" class="bank-row"></div></div>
+          <div><h3>부동산</h3><div id="computer-properties" class="property-grid"></div></div>
+        </div>
+      </section>
+
+      <section class="action-console" aria-labelledby="action-title">
+        <div><p class="console-kicker">CURRENT ACTION</p><h2 id="action-title">카드를 선택하세요</h2><p id="move-hint">손패에서 카드를 선택하거나 차례를 끝낼 수 있습니다.</p></div>
+        <div id="action-options" class="action-options"></div>
+        <button id="end-turn-button" class="end-turn-button" type="button">차례 끝내기</button>
+      </section>
+
+      <section class="player-board human-board" aria-labelledby="human-title">
+        <div class="area-heading"><h2 id="human-title">내 공개 구역</h2><button id="cancel-selection" type="button" hidden>선택 취소</button></div>
+        <div class="public-zone">
+          <div><h3>은행</h3><div id="human-bank" class="bank-row"></div></div>
+          <div><h3>부동산</h3><div id="human-properties" class="property-grid"></div></div>
+        </div>
+        <div class="hand-heading"><h3>내 손패</h3><span id="hand-count">0장</span></div>
+        <div id="human-hand" class="human-hand" aria-label="내 손패"></div>
+      </section>
+
+      <aside class="game-sidebar">
+        <section class="log-panel" aria-labelledby="log-title">
+          <div class="side-title"><h2 id="log-title">진행 기록</h2><button id="new-game-button" type="button">새 게임</button></div>
+          <ol id="game-log"></ol>
+        </section>
+        <details class="quick-rules">
+          <summary>빠른 규칙 보기</summary>
+          <ul>
+            <li>차례 시작: 2장, 손패가 없으면 5장 뽑기</li>
+            <li>한 차례에 카드를 0–3장 사용</li>
+            <li>돈·액션은 은행, 부동산은 색깔 세트에 배치</li>
+            <li>지불은 손패가 아닌 공개된 은행·부동산으로 수행</li>
+            <li>차례 종료 시 손패를 7장 이하로 정리</li>
+            <li>서로 다른 완성 세트 3개를 먼저 만들면 승리</li>
+          </ul>
+          <a href="../" target="_blank" rel="noopener noreferrer">전체 한국어 규칙 열기</a>
+        </details>
+      </aside>
+    </section>
+  </main>
+
+  <dialog id="response-dialog" class="game-dialog" aria-labelledby="response-title" aria-describedby="response-copy">
+    <p class="dialog-kicker">ACTION AGAINST YOU</p>
+    <h2 id="response-title">상대의 액션입니다</h2>
+    <p id="response-copy">액션을 받아들이거나 ‘그냥 안 돼’로 취소할 수 있습니다.</p>
+    <div id="response-actions" class="dialog-actions"></div>
+  </dialog>
+
+  <dialog id="result-dialog" class="game-dialog result-dialog" aria-labelledby="result-title" aria-describedby="result-summary">
+    <p class="dialog-kicker">GAME OVER</p>
+    <h2 id="result-title">게임 종료</h2>
+    <p id="result-summary"></p>
+    <div class="final-score"><span>나 <b id="final-human">0세트</b></span><span>컴퓨터 <b id="final-computer">0세트</b></span></div>
+    <div class="dialog-actions">
+      <button id="replay-button" class="primary-button" type="button">같은 난이도로 다시</button>
+      <button id="change-difficulty-button" class="plain-button" type="button">난이도 변경</button>
+    </div>
+  </dialog>
+
+  <template id="card-template">
+    <button class="deal-card" type="button"><span class="card-top"><b class="card-value"></b><small>M</small></span><strong class="card-name"></strong><span class="card-detail"></span></button>
+  </template>
+  <script type="module" src="./game.js?v=1.0.0"></script>
+</body>
+</html>

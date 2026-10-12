@@ -5,7 +5,7 @@
 ## 등록된 게임
 
 - [Tacoloco](./games/tacoloco/) — Helvetiq, 2025 · [1인용 웹 게임](./games/tacoloco/play/)
-- [Monopoly Deal](./games/monopoly-deal/) — Hasbro, B0965 계열 영문판
+- [Monopoly Deal](./games/monopoly-deal/) — Hasbro, B0965 계열 영문판 · [1인용 웹 게임](./games/monopoly-deal/play/)
 - [In a Grove: Revised Edition](./games/in-a-grove/) — Oink Games, 2021 개정판
 
 ## 디렉터리 구조
@@ -19,7 +19,8 @@
     │   ├── index.html
     │   └── play/                # 컴퓨터 상대 1인용 웹 게임
     ├── monopoly-deal/
-    │   └── index.html
+    │   ├── index.html
+    │   └── play/                # 컴퓨터 상대 1인용 웹 게임
     └── in-a-grove/
         └── index.html         # 게임별 한국어 매뉴얼
 ```
