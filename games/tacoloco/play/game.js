@@ -266,6 +266,7 @@ $('#replay-button').addEventListener('click', () => {
 });
 $('#change-difficulty-button').addEventListener('click', returnToSetup);
 defenseDialog.addEventListener('cancel', event => event.preventDefault());
+resultDialog.addEventListener('cancel', event => event.preventDefault());
 
 document.querySelectorAll('input[name="difficulty"]').forEach(input => input.addEventListener('change', () => {
   document.querySelectorAll('.difficulty-option').forEach(option => option.classList.toggle('selected', option.contains(input)));

@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
   chooseAiMove,
   createDeck,
@@ -157,6 +158,11 @@ test('더미 소진 뒤 다음 플레이어의 손이 비었으면 카드가 남
   assert.equal(next.gameOver, false);
   assert.equal(next.current, 0);
   assert.equal(next.players[0].hand.length, 1);
+});
+
+test('결과 대화상자는 Esc 키로 닫혀 결과를 잃지 않는다', () => {
+  const source = readFileSync(new URL('../games/tacoloco/play/game.js', import.meta.url), 'utf8');
+  assert.match(source, /resultDialog\.addEventListener\('cancel', event => event\.preventDefault\(\)\)/);
 });
 
 test('쉬움·보통·어려움 AI는 항상 가능한 수 중 하나를 고른다', () => {
