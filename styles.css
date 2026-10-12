@@ -96,6 +96,10 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .hero-summary { max-width: 650px; margin: 32px 0 0; font-family: 'Gowun Dodum', sans-serif; font-size: clamp(18px, 2.4vw, 24px); color: rgba(255,255,255,.84); }
 .game-facts { display: flex; flex-wrap: wrap; gap: 10px; margin: 36px 0 0; padding: 0; list-style: none; }
 .game-facts li { padding: 8px 13px; border: 1px solid rgba(255,255,255,.25); border-radius: 999px; font-size: 13px; font-weight: 700; }
+.play-game-link { display: inline-flex; flex-direction: column; min-width: 250px; margin-top: 28px; padding: 14px 18px; background: var(--orange); color: var(--white); text-decoration: none; box-shadow: 5px 5px 0 rgba(255,255,255,.2); transition: transform .15s ease, box-shadow .15s ease; }
+.play-game-link:hover { transform: translateY(-2px); box-shadow: 7px 8px 0 rgba(255,255,255,.2); }
+.play-game-link span { font-size: 10px; font-weight: 800; letter-spacing: .12em; }
+.play-game-link strong { margin-top: 2px; font-size: 17px; }
 
 .manual-layout { width: min(calc(100% - 40px), var(--content)); margin: 0 auto; display: grid; grid-template-columns: 240px minmax(0, 760px); justify-content: space-between; gap: 80px; padding: 72px 0 120px; }
 .manual-layout > *, .manual-layout article, .rule-section { min-width: 0; max-width: 100%; }

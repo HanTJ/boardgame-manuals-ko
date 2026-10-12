@@ -1,0 +1,10 @@
+{
+  "name": "boardgame-manuals-ko",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check games/tacoloco/play/engine.js && node --check games/tacoloco/play/game.js && node --test && python3 scripts/validate.py"
+  }
+}

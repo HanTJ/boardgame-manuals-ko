@@ -4,7 +4,7 @@
 
 ## 등록된 게임
 
-- [Tacoloco](./games/tacoloco/) — Helvetiq, 2025
+- [Tacoloco](./games/tacoloco/) — Helvetiq, 2025 · [1인용 웹 게임](./games/tacoloco/play/)
 - [Monopoly Deal](./games/monopoly-deal/) — Hasbro, B0965 계열 영문판
 - [In a Grove: Revised Edition](./games/in-a-grove/) — Oink Games, 2021 개정판
 
@@ -16,7 +16,8 @@
 ├── styles.css                 # 공통 디자인 및 인쇄 스타일
 └── games/
     ├── tacoloco/
-    │   └── index.html
+    │   ├── index.html
+    │   └── play/                # 컴퓨터 상대 1인용 웹 게임
     ├── monopoly-deal/
     │   └── index.html
     └── in-a-grove/
@@ -32,6 +33,12 @@ python3 -m http.server 8080
 ```
 
 브라우저에서 `http://localhost:8080`을 엽니다.
+
+게임 엔진과 정적 페이지를 함께 검사하려면 다음 명령을 실행합니다.
+
+```bash
+npm run check
+```
 
 ## 번역 원칙
 

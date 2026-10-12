@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2d2148">
+  <meta name="description" content="Tacoloco를 컴퓨터 플레이어와 혼자 즐기는 비공식 웹 게임">
+  <title>Tacoloco 혼자 플레이 | 보드게임 한국어 매뉴얼</title>
+  <link rel="stylesheet" href="./game.css?v=1.0.0">
+</head>
+<body>
+  <header class="game-header">
+    <a href="../" class="back-link">← 한국어 규칙</a>
+    <a href="../../../" class="archive-link">Boardgame Manuals KO</a>
+  </header>
+
+  <main>
+    <section id="start-screen" class="start-screen" aria-labelledby="game-title">
+      <div class="title-lockup">
+        <p>SOLO WEB GAME · UNOFFICIAL</p>
+        <h1 id="game-title"><span>Taco</span><span>loco</span></h1>
+        <p class="start-copy">카드 합계를 정확히 11로 만들어 컴퓨터에게 타코를 건네세요. 게임이 끝났을 때 가져간 카드가 적으면 승리합니다.</p>
+      </div>
+
+      <div class="setup-panel">
+        <fieldset>
+          <legend>컴퓨터 난이도</legend>
+          <label class="difficulty-option">
+            <input type="radio" name="difficulty" value="easy">
+            <span><b>쉬움</b><small>가능한 수를 무작위로 고르고 방어가 느립니다.</small></span>
+          </label>
+          <label class="difficulty-option selected">
+            <input type="radio" name="difficulty" value="normal" checked>
+            <span><b>보통</b><small>11에 가까워지는 수와 위험한 타코를 판단합니다.</small></span>
+          </label>
+          <label class="difficulty-option">
+            <input type="radio" name="difficulty" value="hard">
+            <span><b>어려움</b><small>완성·실패를 계산하고 전설의 타코를 적극 방어합니다.</small></span>
+          </label>
+        </fieldset>
+        <button id="start-button" class="start-button" type="button">게임 시작</button>
+        <p class="setup-note">2인 규칙으로 진행됩니다. 선 플레이어는 무작위로 정합니다.</p>
+      </div>
+    </section>
+
+    <section id="game-screen" class="game-screen" hidden aria-label="Tacoloco 게임판">
+      <div class="status-bar">
+        <div class="status-player computer-status">
+          <span>컴퓨터</span>
+          <strong id="computer-score">0장</strong>
+        </div>
+        <div class="turn-status">
+          <small id="difficulty-label">보통</small>
+          <strong id="turn-label">게임 준비</strong>
+          <span>남은 카드 <b id="deck-count">63</b></span>
+        </div>
+        <div class="status-player human-status">
+          <span>나</span>
+          <strong id="human-score">0장</strong>
+        </div>
+      </div>
+
+      <div class="opponent-area player-area">
+        <div class="area-heading"><span>컴퓨터 손패</span><span id="ai-thinking" class="thinking" hidden>생각하는 중…</span></div>
+        <div id="computer-hand" class="hand opponent-hand" aria-label="컴퓨터의 숨겨진 손패"></div>
+      </div>
+
+      <section class="table-area" aria-label="테이블의 타코">
+        <div class="table-heading">
+          <div><span class="table-kicker">TABLE</span><h2>진행 중인 타코</h2></div>
+          <p id="move-hint">손에서 낼 카드를 선택하세요.</p>
+        </div>
+        <div id="piles" class="piles"></div>
+      </section>
+
+      <div class="human-area player-area">
+        <div class="area-heading"><span>내 손패</span><button id="cancel-selection" type="button" hidden>선택 취소</button></div>
+        <div id="human-hand" class="hand human-hand" aria-label="내 손패"></div>
+      </div>
+
+      <aside class="game-sidebar">
+        <section class="log-panel" aria-labelledby="log-title">
+          <div class="side-title"><h2 id="log-title">진행 기록</h2><button id="new-game-button" type="button">새 게임</button></div>
+          <ol id="game-log"></ol>
+        </section>
+        <details class="quick-rules">
+          <summary>빠른 규칙 보기</summary>
+          <ul>
+            <li>카드 1장을 내고 1장을 뽑습니다.</li>
+            <li><b>11</b>: 상대가 타코를 가져갑니다.</li>
+            <li><b>11 초과</b>: 내가 타코를 가져갑니다.</li>
+            <li>직전 숫자와 같으면 새 타코를 시작합니다.</li>
+            <li><b>전설</b>: 즉시 11 · <b>외로운</b>: 합계 0 또는 전설 방어.</li>
+          </ul>
+          <a href="../" target="_blank" rel="noopener noreferrer">전체 한국어 규칙 열기</a>
+        </details>
+      </aside>
+    </section>
+  </main>
+
+  <dialog id="defense-dialog" class="game-dialog">
+    <p class="dialog-kicker">REACTION</p>
+    <h2>전설의 타코를 방어할까요?</h2>
+    <p>외로운 타코를 내면 컴퓨터가 이 타코 전체를 가져갑니다. 사용한 외로운 타코는 즉시 보충합니다.</p>
+    <div class="dialog-actions">
+      <button id="defend-button" class="accent-button" type="button">외로운 타코로 방어</button>
+      <button id="pass-button" class="plain-button" type="button">그냥 받기</button>
+    </div>
+  </dialog>
+
+  <dialog id="result-dialog" class="game-dialog result-dialog">
+    <p class="dialog-kicker">GAME OVER</p>
+    <h2 id="result-title">게임 종료</h2>
+    <p id="result-summary"></p>
+    <div class="final-score">
+      <span>나 <b id="final-human">0</b></span>
+      <span>컴퓨터 <b id="final-computer">0</b></span>
+    </div>
+    <div class="dialog-actions">
+      <button id="replay-button" class="accent-button" type="button">같은 난이도로 다시</button>
+      <button id="change-difficulty-button" class="plain-button" type="button">난이도 변경</button>
+    </div>
+  </dialog>
+
+  <template id="card-template">
+    <button class="game-card" type="button"><span class="card-name"></span><strong class="card-value"></strong><span class="card-mark"></span></button>
+  </template>
+
+  <script type="module" src="./game.js?v=1.0.0"></script>
+</body>
+</html>
