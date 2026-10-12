@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#18241d">
+  <meta name="description" content="In a Grove 개정판을 컴퓨터와 혼자 플레이하는 규칙 기반 웹 게임">
+  <title>In a Grove 혼자 플레이 | 보드게임 한국어 매뉴얼</title>
+  <link rel="stylesheet" href="./game.css?v=1.0.0">
+</head>
+<body>
+  <header class="game-header">
+    <a href="../">← 한국어 매뉴얼</a>
+    <span>IN A GROVE · SOLO CASEBOOK</span>
+    <a class="archive-link" href="../../../">게임 목록</a>
+  </header>
+
+  <main>
+    <section id="start-screen" class="start-screen">
+      <div class="title-lockup">
+        <p>OINK GAMES · REVISED EDITION</p>
+        <h1>IN A<br><strong>GROVE</strong></h1>
+        <p class="start-copy">숲속에 남은 단서는 단 두 사람뿐입니다. 보지 못한 얼굴과 상대의 지목을 읽고, 무능한 탐정 칩을 피하세요.</p>
+      </div>
+      <div class="setup-panel">
+        <fieldset>
+          <legend>컴퓨터 난이도</legend>
+          <label class="difficulty-option"><input type="radio" name="difficulty" value="easy"><span><b>쉬움</b><small>확인한 정보 안에서 직감적으로 지목합니다.</small></span></label>
+          <label class="difficulty-option selected"><input type="radio" name="difficulty" value="normal" checked><span><b>보통</b><small>가능성이 높은 용의자와 칩 위험을 함께 봅니다.</small></span></label>
+          <label class="difficulty-option"><input type="radio" name="difficulty" value="hard"><span><b>어려움</b><small>가능한 모든 사건 배치를 계산하되 숨은 정보는 보지 않습니다.</small></span></label>
+        </fieldset>
+        <button id="start-game" class="primary-button" type="button">사건 시작</button>
+        <p class="setup-note">2021 개정판 2인 규칙 · 숫자 2–8 타일 사용</p>
+      </div>
+    </section>
+
+    <section id="game-screen" class="game-screen" hidden>
+      <section class="case-header" aria-live="polite">
+        <div><span>CASE</span><strong id="round-number">01</strong></div>
+        <div class="turn-copy"><small id="arrival-label">최초 현장 도착자</small><strong id="turn-label">당신 차례</strong><span id="phase-label">보지 않을 용의자를 선택하세요</span></div>
+        <button id="restart-button" type="button">새 게임</button>
+      </section>
+
+      <section class="evidence-panel" aria-label="현장 밖 인물 정보">
+        <header><p>EVIDENCE OUTSIDE THE SCENE</p><h2>확인된 알리바이</h2></header>
+        <div class="evidence-items">
+          <div class="evidence-card"><span>내 알리바이</span><strong id="own-alibi">?</strong></div>
+          <div class="evidence-card public"><span>공개 인물</span><strong id="public-tile">?</strong></div>
+          <div class="evidence-card muted"><span>컴퓨터 알리바이</span><strong>비공개</strong></div>
+        </div>
+      </section>
+
+      <section class="scene-panel">
+        <header class="scene-heading">
+          <div><p>THE CRIME SCENE</p><h2>세 명의 용의자</h2></div>
+          <p id="scene-help">한 명을 보지 않기로 정하면 나머지 두 명을 확인합니다.</p>
+        </header>
+        <div id="suspect-grid" class="suspect-grid"></div>
+        <div class="victim-strip"><span>피해자</span><strong id="victim-tile">사건 종료 후 공개</strong></div>
+      </section>
+
+      <aside class="case-sidebar">
+        <section class="score-panel">
+          <p class="side-kicker">DETECTIVE RECORD</p>
+          <h2>수사 기록</h2>
+          <div class="score-row"><span>당신</span><strong id="human-score">0</strong><small id="human-supply">칩 7개</small></div>
+          <div class="score-row"><span>컴퓨터</span><strong id="computer-score">0</strong><small id="computer-supply">칩 7개</small></div>
+          <p class="score-note">숫자는 무능한 탐정 칩입니다. 5개 이상이면 게임이 끝납니다.</p>
+        </section>
+        <section class="log-panel">
+          <div class="side-title"><h2>사건 기록</h2><button id="toggle-log" type="button">접기</button></div>
+          <ol id="game-log" aria-live="polite"></ol>
+        </section>
+        <details class="quick-rules">
+          <summary>빠른 규칙</summary>
+          <ul>
+            <li>5가 없으면 가장 큰 수가 범인입니다.</li>
+            <li>용의자 중 5가 있으면 가장 작은 수가 범인입니다.</li>
+            <li>틀린 더미는 맨 위 칩 주인이 전부 받습니다.</li>
+            <li>두 사람은 사건마다 최초 도착자를 번갈아 맡습니다.</li>
+          </ul>
+          <a href="../">전체 한국어 규칙 보기 →</a>
+        </details>
+      </aside>
+    </section>
+  </main>
+
+  <dialog id="result-dialog" class="game-dialog" aria-labelledby="result-title">
+    <p class="dialog-kicker">CASE CLOSED</p>
+    <h2 id="result-title">사건 해결</h2>
+    <p id="result-copy"></p>
+    <div id="result-score" class="final-score"></div>
+    <div class="dialog-actions">
+      <button id="next-round" class="primary-button" type="button">다음 사건</button>
+      <button id="result-restart" class="plain-button" type="button">새 게임</button>
+    </div>
+  </dialog>
+
+  <script type="module" src="./game.js?v=1.0.0"></script>
+</body>
+</html>

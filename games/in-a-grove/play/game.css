@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --forest: #18241d; --forest-soft: #2e4034; --moss: #667b4d; --lichen: #b9bd8e;
+  --paper: #eee8d8; --paper-light: #faf7ed; --ink: #20231f; --muted: #6a6d62;
+  --rust: #a94b32; --line: rgba(32,35,31,.22); --shadow: 0 18px 50px rgba(18,28,21,.16);
+}
+* { box-sizing: border-box; }
+html { min-width: 320px; background: var(--paper); }
+body { margin: 0; min-height: 100vh; color: var(--ink); background: var(--paper); font-family: 'Noto Sans KR', sans-serif; line-height: 1.5; word-break: keep-all; }
+button, input { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { color: inherit; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 3px solid var(--rust); outline-offset: 3px; }
+.game-header, main { width: min(1200px, calc(100% - 36px)); margin: 0 auto; }
+.game-header { min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 11px; letter-spacing: .08em; }
+.game-header a { color: var(--ink); font-weight: 800; text-decoration: none; letter-spacing: 0; }
+
+.start-screen { min-height: calc(100vh - 68px); display: grid; grid-template-columns: 1.08fr .92fr; align-items: center; gap: clamp(46px, 9vw, 120px); padding: 60px 0 90px; }
+.title-lockup > p:first-child { margin: 0 0 24px; color: var(--rust); font-size: 11px; font-weight: 900; letter-spacing: .18em; }
+.title-lockup h1 { margin: 0; color: var(--forest); font: 700 clamp(72px, 12vw, 152px)/.72 'Gowun Batang', serif; letter-spacing: -.085em; }
+.title-lockup h1 strong { display: inline-block; margin-left: .22em; color: var(--rust); font-weight: 700; }
+.start-copy { max-width: 570px; margin: 50px 0 0; color: var(--muted); font: 400 clamp(18px, 2vw, 22px)/1.7 'Gowun Batang', serif; }
+.setup-panel { padding: 30px; border: 1px solid var(--forest); background: var(--paper-light); box-shadow: var(--shadow); }
+fieldset { margin: 0; padding: 0; border: 0; }
+legend { margin-bottom: 14px; font-weight: 900; }
+.difficulty-option { display: block; position: relative; margin-top: 8px; cursor: pointer; }
+.difficulty-option input { position: absolute; opacity: 0; }
+.difficulty-option > span { min-height: 78px; display: flex; flex-direction: column; justify-content: center; padding: 12px 15px 12px 50px; border: 1px solid var(--line); transition: background .15s, border .15s; }
+.difficulty-option > span::before { content: ''; position: absolute; left: 18px; top: 50%; width: 17px; height: 17px; border: 2px solid var(--forest); border-radius: 50%; transform: translateY(-50%); }
+.difficulty-option.selected > span { border-color: var(--moss); background: #eef0df; }
+.difficulty-option.selected > span::before { border-color: var(--moss); background: var(--moss); box-shadow: inset 0 0 0 4px #eef0df; }
+.difficulty-option:has(input:focus-visible) > span { outline: 3px solid var(--rust); outline-offset: 3px; }
+.difficulty-option small { margin-top: 3px; color: var(--muted); line-height: 1.4; }
+.primary-button { width: 100%; min-height: 54px; margin-top: 20px; border: 1px solid var(--forest); background: var(--forest); color: white; cursor: pointer; font-weight: 900; }
+.primary-button:hover { background: var(--forest-soft); }
+.setup-note { margin: 12px 0 0; color: var(--muted); font-size: 11px; text-align: center; }
+
+.game-screen { padding: 24px 0 80px; display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 16px; }
+.case-header { grid-column: 1 / -1; min-height: 88px; display: grid; grid-template-columns: 100px 1fr 100px; align-items: center; padding: 12px 18px; background: var(--forest); color: white; }
+.case-header > div:first-child { display: flex; align-items: baseline; gap: 8px; }
+.case-header > div:first-child span { color: var(--lichen); font-size: 9px; letter-spacing: .14em; }
+.case-header > div:first-child strong { font: 700 30px 'Gowun Batang', serif; }
+.turn-copy { text-align: center; }
+.turn-copy small, .turn-copy strong, .turn-copy span { display: block; }
+.turn-copy small { color: var(--lichen); font-size: 10px; }
+.turn-copy strong { font-size: 18px; }
+.turn-copy span { color: rgba(255,255,255,.68); font-size: 10px; }
+.case-header button { min-height: 38px; border: 1px solid rgba(255,255,255,.4); background: transparent; color: white; cursor: pointer; font-size: 10px; }
+.evidence-panel, .scene-panel, .case-sidebar > * { min-width: 0; border: 1px solid var(--line); background: rgba(250,247,237,.76); }
+.evidence-panel { grid-column: 1; display: grid; grid-template-columns: 190px 1fr; align-items: center; gap: 20px; padding: 18px; }
+.evidence-panel header p, .scene-heading p:first-child, .side-kicker { margin: 0; color: var(--rust); font: 900 8px ui-monospace, monospace; letter-spacing: .14em; }
+.evidence-panel h2, .scene-heading h2, .case-sidebar h2 { margin: 4px 0 0; font-size: 17px; }
+.evidence-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.evidence-card { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 12px; border: 1px solid var(--line); background: var(--paper-light); }
+.evidence-card span { color: var(--muted); font-size: 9px; }
+.evidence-card strong { font: 700 27px 'Gowun Batang', serif; }
+.evidence-card.public { background: #e4e7cf; }
+.evidence-card.muted strong { color: var(--muted); font: 700 11px 'Noto Sans KR', sans-serif; }
+
+.scene-panel { grid-column: 1; padding: 22px; background: #d8dac0; }
+.scene-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+.scene-heading > p { max-width: 420px; margin: 0; color: var(--muted); font-size: 11px; text-align: right; }
+.suspect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+.suspect-card { position: relative; min-width: 0; min-height: 270px; display: flex; flex-direction: column; justify-content: space-between; padding: 14px; border: 1px solid var(--forest); background: var(--paper-light); box-shadow: 4px 5px 0 rgba(24,36,29,.15); }
+.suspect-card.criminal { box-shadow: inset 0 0 0 5px var(--rust), 4px 5px 0 rgba(24,36,29,.15); }
+.suspect-card.unviewed { background: #d1c9b6; }
+.suspect-index { color: var(--muted); font: 900 9px ui-monospace, monospace; letter-spacing: .12em; }
+.suspect-value { align-self: center; font: 700 82px/1 'Gowun Batang', serif; }
+.suspect-value.hidden { color: var(--forest); font-size: 64px; }
+.suspect-state { min-height: 20px; color: var(--muted); font-size: 9px; text-align: center; }
+.chip-stack { min-height: 30px; display: flex; justify-content: center; align-items: center; }
+.detective-chip { width: 29px; height: 29px; display: grid; place-items: center; margin-left: -6px; border: 2px solid var(--paper-light); border-radius: 50%; color: white; font-size: 8px; font-weight: 900; }
+.detective-chip:first-child { margin-left: 0; }
+.detective-chip.human { background: var(--rust); }
+.detective-chip.computer { background: var(--forest); }
+.suspect-actions { display: grid; gap: 6px; }
+.suspect-actions button { min-height: 44px; border: 1px solid var(--forest); background: transparent; cursor: pointer; font-size: 10px; font-weight: 900; }
+.suspect-actions button.accuse { background: var(--forest); color: white; }
+.victim-strip { min-height: 42px; display: flex; align-items: center; justify-content: space-between; margin-top: 12px; padding: 8px 12px; border-top: 1px solid rgba(24,36,29,.3); color: var(--muted); font-size: 10px; }
+
+.case-sidebar { grid-column: 2; grid-row: 2 / span 2; min-width: 0; }
+.score-panel, .log-panel, .quick-rules { padding: 18px; }
+.score-row { display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); }
+.score-row:first-of-type { margin-top: 12px; }
+.score-row span { font-size: 11px; font-weight: 800; }
+.score-row strong { color: var(--rust); font: 700 27px 'Gowun Batang', serif; }
+.score-row small { grid-column: 1 / -1; color: var(--muted); font-size: 9px; }
+.score-note { color: var(--muted); font-size: 9px; }
+.log-panel { margin-top: 12px; }
+.side-title { display: flex; align-items: center; justify-content: space-between; }
+.side-title button { border: 0; background: transparent; color: var(--rust); cursor: pointer; font-size: 9px; font-weight: 900; }
+#game-log { margin: 10px 0 0; padding: 0; list-style: none; }
+#game-log li { padding: 8px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 9px; overflow-wrap: anywhere; }
+#game-log li:first-child { color: var(--ink); font-weight: 700; }
+.quick-rules { margin-top: 12px; }
+.quick-rules summary { cursor: pointer; font-size: 11px; font-weight: 900; }
+.quick-rules ul { padding-left: 18px; color: var(--muted); font-size: 9px; }
+.quick-rules a { color: var(--rust); font-size: 10px; font-weight: 900; }
+
+.game-dialog { width: min(520px, calc(100% - 28px)); padding: 30px; border: 1px solid var(--forest); background: var(--paper); color: var(--ink); box-shadow: var(--shadow); }
+.game-dialog::backdrop { background: rgba(12,20,15,.78); }
+.dialog-kicker { margin: 0 0 8px; color: var(--rust); font: 900 9px ui-monospace, monospace; letter-spacing: .14em; }
+.game-dialog h2 { margin: 0; font: 700 clamp(30px, 6vw, 42px) 'Gowun Batang', serif; }
+.game-dialog > p:not(.dialog-kicker) { color: var(--muted); }
+.final-score { display: grid; grid-template-columns: 1fr 1fr; margin: 20px 0; border: 1px solid var(--line); }
+.final-score span { padding: 14px; text-align: center; }
+.final-score span + span { border-left: 1px solid var(--line); }
+.final-score b { display: block; font-size: 22px; }
+.dialog-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.dialog-actions button { min-height: 50px; margin-top: 0; cursor: pointer; font-weight: 900; }
+.plain-button { border: 1px solid var(--forest); background: transparent; }
+
+@media (max-width: 900px) {
+  .start-screen { grid-template-columns: 1fr; min-height: auto; }
+  .setup-panel { max-width: 650px; }
+  .game-screen { grid-template-columns: 1fr; }
+  .case-sidebar { grid-column: 1; grid-row: auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .case-sidebar > * { margin-top: 0; }
+}
+@media (max-width: 650px) {
+  body { word-break: normal; overflow-wrap: anywhere; }
+  .game-header, main { width: min(100% - 24px, 1200px); }
+  .archive-link { display: none; }
+  .title-lockup h1 { font-size: clamp(70px, 24vw, 118px); }
+  .setup-panel { padding: 18px; }
+  .game-screen { padding-top: 12px; }
+  .case-header { grid-template-columns: 58px 1fr 68px; padding: 10px; }
+  .evidence-panel { grid-template-columns: 1fr; }
+  .evidence-items { grid-template-columns: 1fr 1fr; }
+  .evidence-card.muted { grid-column: 1 / -1; }
+  .scene-panel { padding: 14px; }
+  .scene-heading { display: block; }
+  .scene-heading > p { margin-top: 8px; text-align: left; }
+  .suspect-grid { grid-template-columns: 1fr; }
+  .suspect-card { min-height: 220px; }
+  .suspect-value { font-size: 70px; }
+  .case-sidebar { display: block; }
+  .case-sidebar > * { margin-top: 12px; }
+  .dialog-actions { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
