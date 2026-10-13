@@ -7,6 +7,7 @@
 - [Tacoloco](./games/tacoloco/) — Helvetiq, 2025 · [1인용 웹 게임](./games/tacoloco/play/)
 - [Monopoly Deal](./games/monopoly-deal/) — Hasbro, B0965 계열 영문판 · [1인용 웹 게임](./games/monopoly-deal/play/)
 - [In a Grove: Revised Edition](./games/in-a-grove/) — Oink Games, 2021 개정판 · [1인용 웹 게임](./games/in-a-grove/play/)
+- [A Fake Artist Goes to New York](./games/a-fake-artist-goes-to-new-york/) — Oink Games, 영문판
 
 ## 디렉터리 구조
 
@@ -21,9 +22,11 @@
     ├── monopoly-deal/
     │   ├── index.html
     │   └── play/                # 컴퓨터 상대 1인용 웹 게임
-    └── in-a-grove/
-        ├── index.html         # 게임별 한국어 매뉴얼
-        └── play/              # 컴퓨터 상대 1인용 웹 게임
+    ├── in-a-grove/
+    │   ├── index.html         # 게임별 한국어 매뉴얼
+    │   └── play/              # 컴퓨터 상대 1인용 웹 게임
+    └── a-fake-artist-goes-to-new-york/
+        └── index.html         # 게임별 한국어 매뉴얼
 ```
 
 새 게임은 `games/<영문-슬러그>/index.html`에 추가하고 루트 `index.html`의 목록에 연결합니다.
