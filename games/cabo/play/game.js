@@ -245,16 +245,21 @@ function describeComputer(move, view, after) {
   if (move.type === 'takeDiscard') return `컴퓨터가 버림 더미의 ${view.discardTop.value} 카드를 가져왔습니다.`;
   if (move.type === 'callCabo') return '컴퓨터가 CABO를 선언했습니다. 당신에게 마지막 차례가 주어집니다.';
   if (move.type === 'exchange') {
-    if (after.phase === 'placeFailed') return '컴퓨터의 여러 장 교환이 실패해 카드가 공개되었습니다.';
-    if (after.phase === 'placeExchange') return `컴퓨터가 같은 숫자 ${move.indices.length}장 교환에 성공했습니다.`;
-    return `컴퓨터가 자기 카드 ${move.indices.length}장을 교환했습니다.`;
+    const positions = move.indices.map(index => index + 1).join(', ');
+    if (after.phase === 'placeFailed') return `컴퓨터의 ${positions}번 카드 교환이 실패해 선택 카드가 공개되었습니다.`;
+    if (after.phase === 'placeExchange') return `컴퓨터가 ${positions}번의 같은 숫자 ${move.indices.length}장 교환에 성공했습니다.`;
+    return `컴퓨터가 자기 ${positions}번 카드를 교환했습니다.`;
   }
-  if (move.type === 'placeExchange') return '컴퓨터가 교환한 자리에 새 카드를 놓았습니다.';
-  if (move.type === 'placeFailed') return '컴퓨터가 실패 후 받은 카드를 줄 끝에 놓았습니다.';
-  if (move.type === 'discardDrawn') return '컴퓨터가 뽑은 카드를 버렸습니다.';
-  if (move.type === 'usePeek') return '컴퓨터가 PEEK로 자기 카드 한 장을 확인했습니다.';
-  if (move.type === 'useSpy') return `컴퓨터가 SPY로 당신의 ${move.target + 1}번 카드를 확인했습니다.`;
-  if (move.type === 'useSwap') return `컴퓨터가 자기 카드와 당신의 ${move.other + 1}번 카드를 바꿨습니다.`;
+  if (move.type === 'placeExchange') return `컴퓨터가 새 카드를 ${move.placeAt + 1}번 교환 자리에 놓았습니다.`;
+  if (move.type === 'placeFailed') {
+    const drawn = move.drawnAt === 'left' ? '왼쪽' : '오른쪽';
+    const penalty = move.penaltyAt ? `, 벌칙 카드는 ${move.penaltyAt === 'left' ? '왼쪽' : '오른쪽'}` : '';
+    return `컴퓨터가 실패 후 뽑은 카드를 ${drawn}${penalty} 끝에 놓았습니다.`;
+  }
+  if (move.type === 'discardDrawn') return `컴퓨터가 뽑은 ${after.discardTop.value} 카드를 버렸습니다.`;
+  if (move.type === 'usePeek') return `컴퓨터가 ${after.discardTop.value}의 PEEK로 자기 ${move.target + 1}번 카드를 확인했습니다.`;
+  if (move.type === 'useSpy') return `컴퓨터가 ${after.discardTop.value}의 SPY로 당신의 ${move.target + 1}번 카드를 확인했습니다.`;
+  if (move.type === 'useSwap') return `컴퓨터가 ${after.discardTop.value}의 SWAP으로 자기 ${move.own + 1}번과 당신의 ${move.other + 1}번 카드를 바꿨습니다.`;
   return '컴퓨터가 행동을 마쳤습니다.';
 }
 

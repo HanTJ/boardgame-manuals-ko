@@ -37,6 +37,9 @@ test('CABO 매뉴얼과 1인용 게임은 서로 연결되고 게임 화면은 �
   assert.match(controller, /placeExchange/);
   assert.match(controller, /placeFailed/);
   assert.match(controller, /chooseInitial/);
+  assert.match(controller, /move\.indices\.map\(index => index \+ 1\)/);
+  assert.match(controller, /컴퓨터.*move\.placeAt \+ 1/);
+  assert.match(controller, /컴퓨터.*move\.own \+ 1.*move\.other \+ 1/);
   assert.match(controller, /peekDialog\.addEventListener\('cancel'/);
   assert.match(controller, /addEventListener\('cancel'/);
   assert.match(styles, /@media \(max-width: 680px\)/);
