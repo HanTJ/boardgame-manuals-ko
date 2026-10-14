@@ -5,6 +5,6 @@
   "type": "module",
   "scripts": {
     "test": "node --test",
-    "check": "node --check games/tacoloco/play/engine.js && node --check games/tacoloco/play/game.js && node --check games/monopoly-deal/play/engine.js && node --check games/monopoly-deal/play/game.js && node --check games/in-a-grove/play/engine.js && node --check games/in-a-grove/play/game.js && node --test && python3 scripts/validate.py"
+    "check": "node --check games/tacoloco/play/engine.js && node --check games/tacoloco/play/game.js && node --check games/monopoly-deal/play/engine.js && node --check games/monopoly-deal/play/game.js && node --check games/in-a-grove/play/engine.js && node --check games/in-a-grove/play/game.js && node --check games/cabo/play/engine.js && node --check games/cabo/play/game.js && node --test && python3 scripts/validate.py"
   }
 }
