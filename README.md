@@ -8,6 +8,7 @@
 - [Monopoly Deal](./games/monopoly-deal/) — Hasbro, B0965 계열 영문판 · [1인용 웹 게임](./games/monopoly-deal/play/)
 - [In a Grove: Revised Edition](./games/in-a-grove/) — Oink Games, 2021 개정판 · [1인용 웹 게임](./games/in-a-grove/play/)
 - [A Fake Artist Goes to New York](./games/a-fake-artist-goes-to-new-york/) — Oink Games, 영문판
+- [CABO: Second Edition](./games/cabo/) — Bezier Games, 2019년 2판
 
 ## 디렉터리 구조
 
@@ -25,7 +26,9 @@
     ├── in-a-grove/
     │   ├── index.html         # 게임별 한국어 매뉴얼
     │   └── play/              # 컴퓨터 상대 1인용 웹 게임
-    └── a-fake-artist-goes-to-new-york/
+    ├── a-fake-artist-goes-to-new-york/
+    │   └── index.html         # 게임별 한국어 매뉴얼
+    └── cabo/
         └── index.html         # 게임별 한국어 매뉴얼
 ```
 
