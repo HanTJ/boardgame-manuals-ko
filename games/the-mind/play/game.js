@@ -1,4 +1,4 @@
-import { applyMove, chooseAiMove, createGame, legalMoves, viewForPlayer } from './engine.js';
+import { applyMove, chooseAiMove, createGame, legalMoves, viewForPlayer } from './engine.js?v=1.0.1';
 
 const $ = selector => document.querySelector(selector);
 const startScreen = $('#start-screen');
