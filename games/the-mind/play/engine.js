@@ -48,7 +48,7 @@ export function createGame({ rng = Math.random, difficulty = 'normal' } = {}) {
     starProposal: null,
     reward: null,
     result: null,
-    log: ['레벨 1을 준비했습니다.']
+    log: ['레벨 1 준비 완료.']
   };
   game.aiSchedule = createAiSchedule(game.players[1].hand, difficulty, rng);
   return game;
@@ -96,7 +96,7 @@ function completeIfReady(game) {
   if (game.reward === 'star') game.stars = Math.min(3, game.stars + 1);
   if (game.reward === 'life') game.lives = Math.min(5, game.lives + 1);
   game.phase = 'levelComplete';
-  game.log.unshift(`레벨 ${game.level}을 완수했습니다.`);
+  game.log.unshift(`레벨 ${game.level} 완료.`);
 }
 
 function prepareNextLevel(game, rng) {
@@ -110,7 +110,7 @@ function prepareNextLevel(game, rng) {
   game.reward = null;
   game.aiSchedule = createAiSchedule(game.players[1].hand, game.difficulty, rng);
   game.phase = 'focus';
-  game.log.unshift(`레벨 ${game.level}을 준비했습니다.`);
+  game.log.unshift(`레벨 ${game.level} 준비 완료.`);
 }
 
 export function applyMove(source, move, playerIndex, rng = Math.random) {
@@ -121,7 +121,7 @@ export function applyMove(source, move, playerIndex, rng = Math.random) {
 
   if (move.type === 'startLevel') {
     game.phase = 'playing';
-    game.log.unshift(`레벨 ${game.level}을 시작했습니다.`);
+    game.log.unshift(`레벨 ${game.level} 시작.`);
     return game;
   }
 
