@@ -27,6 +27,7 @@ test('2인 게임은 레벨 1·생명 2·수리검 1개와 각자 카드 1장으
   assert.equal(game.deck.length, 98);
   assert.equal(game.pile.length, 0);
   assert.equal(game.removed.length, 0);
+  assert.equal(game.log[0], '레벨 1 준비 완료.');
 });
 
 const card = value => ({ id: `mind-${value}`, value });
@@ -35,6 +36,7 @@ test('집중 단계에서는 시작만, 진행 중에는 자기 카드와 수리
   let game = createGame({ rng: seeded(11) });
   assert.deepEqual(legalMoves(game, 0), [{ type: 'startLevel' }]);
   game = applyMove(game, { type: 'startLevel' }, 0);
+  assert.equal(game.log[0], '레벨 1 시작.');
   game.players[0].hand = [card(12), card(45)];
   const moves = legalMoves(game, 0);
   assert.ok(moves.some(move => move.type === 'play' && move.cardId === game.players[0].hand[0].id));
