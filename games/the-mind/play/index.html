@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14131a">
+  <meta name="description" content="The Mind를 규칙 기반 컴퓨터 팀원과 혼자 플레이하는 웹 게임">
+  <title>The Mind 혼자 플레이 | 보드게임 한국어 매뉴얼</title>
+  <link rel="stylesheet" href="./game.css?v=1.0.0">
+</head>
+<body>
+  <header class="game-header">
+    <a href="../">← The Mind 한국어 매뉴얼</a>
+    <span>THE MIND · SOLO SYNC</span>
+    <a class="archive-link" href="../../../">게임 목록</a>
+  </header>
+
+  <main>
+    <section id="start-screen" class="start-screen">
+      <div class="title-lockup">
+        <p>ONE MIND · TWO PLAYERS</p>
+        <h1>THE<br><strong>MIND</strong></h1>
+        <p class="start-copy">컴퓨터 팀원과 말없이 숫자의 흐름을 맞추세요. 컴퓨터는 당신의 카드를 보지 않으며, 선택한 난이도에 따라 숫자 흐름을 판단하는 정확도만 달라집니다.</p>
+      </div>
+      <div class="setup-panel">
+        <fieldset>
+          <legend>컴퓨터 난이도</legend>
+          <label class="choice"><input type="radio" name="difficulty" value="easy"><span><b>쉬움</b><small>판단의 흔들림이 커서 예측하기 어렵습니다.</small></span></label>
+          <label class="choice selected"><input type="radio" name="difficulty" value="normal" checked><span><b>보통</b><small>적당한 오차로 숫자의 흐름을 따라갑니다.</small></span></label>
+          <label class="choice"><input type="radio" name="difficulty" value="hard"><span><b>어려움</b><small>숫자 흐름 판단이 정교해 높은 레벨에 유리합니다.</small></span></label>
+        </fieldset>
+        <button id="start-game" class="primary-button" type="button">혼자 게임 시작</button>
+        <p class="setup-note">2인 기본 게임 · 레벨 1–12 · 생명 2개 · 수리검 1개</p>
+      </div>
+    </section>
+
+    <section id="game-screen" class="game-screen" hidden>
+      <header class="status-header" aria-live="polite">
+        <div class="level-mark"><span>LEVEL</span><strong id="level-count">01</strong><small>/ 12</small></div>
+        <div class="status-copy"><small id="difficulty-label">보통 컴퓨터</small><strong id="phase-title">집중할 준비를 하세요</strong><span id="phase-copy">준비가 되면 함께 시작합니다.</span></div>
+        <button id="restart-button" type="button">새 게임</button>
+      </header>
+
+      <section class="resource-bar" aria-label="팀 자원">
+        <div><span aria-hidden="true">♥</span><b>생명</b><strong id="life-count">2</strong></div>
+        <div><span aria-hidden="true">✦</span><b>수리검</b><strong id="star-count">1</strong></div>
+        <p>두 사람은 한 팀입니다.</p>
+      </section>
+
+      <section class="mind-board" aria-label="The Mind 게임판">
+        <section class="player-zone computer-zone">
+          <div class="zone-heading"><div><span>COMPUTER</span><h2>컴퓨터 팀원</h2></div><p><b id="computer-count">0</b>장</p></div>
+          <div id="computer-hand" class="hand computer-hand" aria-label="컴퓨터의 비공개 카드"></div>
+          <p class="privacy-note">당신의 카드를 보지 않고 자기 패와 공개된 카드만 판단합니다.</p>
+        </section>
+
+        <section class="table-center">
+          <div class="flow-line" aria-hidden="true"></div>
+          <div class="pile-wrap">
+            <span>OPEN STACK</span>
+            <div id="play-pile" class="number-card pile-card empty-card" aria-live="polite">—</div>
+            <b id="pile-caption">아직 낸 카드가 없습니다.</b>
+          </div>
+          <div id="pile-history" class="pile-history" aria-label="낸 카드 기록"></div>
+        </section>
+
+        <section class="player-zone human-zone">
+          <div class="zone-heading"><div><span>PLAYER</span><h2>내 카드</h2></div><p><b id="human-count">0</b>장</p></div>
+          <div id="human-hand" class="hand" aria-label="내 숫자 카드"></div>
+          <p class="hand-help">지금이 맞다고 느껴지는 순간 카드를 누르세요. 차례는 없습니다.</p>
+        </section>
+      </section>
+
+      <aside class="control-panel">
+        <p class="eyebrow">TEAM CONTROL</p>
+        <h2>함께 행동하기</h2>
+        <button id="focus-button" class="primary-button" type="button">집중 완료 · 레벨 시작</button>
+        <button id="throwing-star" class="star-button" type="button" disabled>✦ 수리검 사용 제안</button>
+        <p id="action-help">레벨을 시작하면 별도의 진행 표시는 나타나지 않습니다.</p>
+        <details class="quick-rules">
+          <summary>빠른 규칙</summary>
+          <ul>
+            <li>말이나 신호 없이 팀 전체의 카드를 오름차순으로 내며, 각자 자기 최저 카드만 낼 수 있습니다.</li>
+            <li>더 낮은 카드를 건너뛰면 생명 1개를 잃고 그 카드들을 제거합니다.</li>
+            <li>수리검은 컴퓨터의 동의 후 각자 가장 낮은 카드 1장씩을 제거합니다.</li>
+            <li>집중이 흐트러지면 잠시 멈춘 뒤 같은 레벨을 이어서 진행할 수 있습니다.</li>
+            <li>컴퓨터는 당신의 숨은 카드 값을 읽지 않습니다.</li>
+          </ul>
+          <a href="../">전체 한국어 규칙 보기 →</a>
+        </details>
+      </aside>
+
+      <section class="log-panel">
+        <div><p class="eyebrow">TEAM LOG</p><h2>진행 기록</h2></div>
+        <ol id="game-log" aria-live="polite"></ol>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="result-dialog" class="game-dialog" aria-labelledby="result-title">
+    <p class="dialog-kicker">GAME COMPLETE</p>
+    <h2 id="result-title">게임 종료</h2>
+    <p id="result-copy"></p>
+    <div class="result-stats"><div><span>도달 레벨</span><b id="result-level">1</b></div><div><span>남은 생명</span><b id="result-lives">0</b></div></div>
+    <div class="dialog-actions"><button id="result-restart" class="primary-button" type="button">다시 플레이</button><a class="manual-button" href="../">규칙 확인</a></div>
+  </dialog>
+
+  <script type="module" src="./game.js?v=1.0.0"></script>
+</body>
+</html>
