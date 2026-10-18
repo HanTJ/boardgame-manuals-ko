@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#17142b">
+  <meta name="description" content="dnup 정식 2인 규칙을 컴퓨터와 혼자 플레이하는 브라우저 게임">
+  <title>dnup 혼자 플레이 | 보드게임 한국어 매뉴얼</title>
+  <link rel="stylesheet" href="./game.css?v=1.0.0">
+</head>
+<body>
+  <header class="game-header">
+    <a href="../">← dnup 한국어 매뉴얼</a>
+    <span>DNUP · SOLO DUEL</span>
+    <a href="../../../">게임 목록</a>
+  </header>
+
+  <main>
+    <section id="start-screen" class="start-screen">
+      <div class="title-lockup">
+        <p>CARDS DOWN · STAKES UP</p>
+        <h1><span>d</span><span>n</span><span>u</span><span>p</span></h1>
+        <p>위아래 숫자가 다른 카드로 세트를 만들고, 상대 세트를 되돌려 보내며 먼저 두 라운드를 차지하세요.</p>
+      </div>
+      <div class="setup-panel">
+        <p class="eyebrow">COMPUTER LEVEL</p>
+        <h2>컴퓨터 난이도</h2>
+        <fieldset>
+          <label class="choice"><input type="radio" name="difficulty" value="easy"><span><b>쉬움</b><small>이길 수 있으면 이기고, 그 외에는 합법 행동 중 무작위로 선택합니다.</small></span></label>
+          <label class="choice selected"><input type="radio" name="difficulty" value="normal" checked><span><b>보통</b><small>손패 감소와 세트 생존 가능성을 한 차례 앞에서 비교합니다.</small></span></label>
+          <label class="choice"><input type="radio" name="difficulty" value="hard"><span><b>어려움</b><small>연속되는 두 구역의 조합과 되돌아올 카드까지 계산합니다.</small></span></label>
+        </fieldset>
+        <button id="start-game" class="primary-button" type="button">혼자 게임 시작</button>
+        <p class="privacy-note">컴퓨터는 자기 손과 공개된 네 구역만 봅니다. 내 손의 숫자와 방향은 전달되지 않습니다.</p>
+      </div>
+    </section>
+
+    <section id="game-screen" class="game-screen" hidden>
+      <header class="status-bar" aria-live="polite">
+        <div class="score"><span>ROUND</span><strong id="round-number">1</strong></div>
+        <div class="status-copy"><small id="difficulty-label">보통 난이도</small><strong id="turn-label">당신 차례</strong><span id="area-label">플레이 구역 2</span></div>
+        <div class="wins" aria-label="라운드 승리 수"><span>나 <b id="human-wins">0</b></span><i>:</i><span><b id="computer-wins">0</b> 컴퓨터</span></div>
+        <button id="restart-button" type="button">새 게임</button>
+      </header>
+
+      <section class="table" aria-label="dnup 게임 테이블">
+        <section class="player-side computer-side">
+          <div class="side-heading">
+            <div><span>COMPUTER</span><h2>컴퓨터</h2></div>
+            <p><b id="computer-hand-count">13</b>장</p>
+          </div>
+          <div id="computer-hand" class="hidden-hand" aria-label="컴퓨터의 숨겨진 손"></div>
+          <div class="areas" aria-label="컴퓨터 플레이 구역">
+            <div class="play-area" id="computer-area-1" data-player="1" data-area="0"><span>구역 1</span><div class="area-cards"></div><button class="take-button" type="button" hidden>세트 가져오기</button></div>
+            <div class="play-area" id="computer-area-2" data-player="1" data-area="1"><span>구역 2</span><div class="area-cards"></div><button class="take-button" type="button" hidden>세트 가져오기</button></div>
+          </div>
+        </section>
+
+        <div class="table-center" aria-hidden="true"><span>d</span><span>n</span><span>u</span><span>p</span><small id="discard-count">버림 0장</small></div>
+
+        <section class="player-side human-side">
+          <div class="areas" aria-label="내 플레이 구역">
+            <div class="play-area" id="human-area-1" data-player="0" data-area="0"><span>구역 1</span><div class="area-cards"></div></div>
+            <div class="play-area" id="human-area-2" data-player="0" data-area="1"><span>구역 2</span><div class="area-cards"></div></div>
+          </div>
+          <div class="side-heading">
+            <div><span>PLAYER</span><h2>내 손</h2></div>
+            <p><b id="human-hand-count">13</b>장</p>
+          </div>
+          <div id="human-hand" class="hand" aria-label="내 손 카드"></div>
+        </section>
+      </section>
+
+      <section class="control-panel">
+        <div>
+          <p class="eyebrow">ONE ACTION</p>
+          <h2>행동 하나를 선택하세요</h2>
+          <p id="selection-help" aria-live="polite">같은 활성값의 카드를 선택해 세트를 만들 수 있습니다.</p>
+        </div>
+        <div id="legal-actions" class="legal-actions">
+          <button id="play-set" class="action-button" type="button" disabled>A · 선택한 세트 내기</button>
+          <div id="add-actions" class="add-actions"></div>
+          <button id="rotate-hand" class="action-button rotate-button" type="button">D · 손 전체 회전</button>
+        </div>
+        <details class="quick-rules">
+          <summary>빠른 규칙</summary>
+          <ul>
+            <li>각 구역 차례 시작에 그 구역의 기존 세트를 버립니다.</li>
+            <li>같은 크기 세트가 있으면 반드시 더 높은 값으로 내야 합니다.</li>
+            <li>되돌아오거나 가져온 카드는 180도 회전합니다.</li>
+            <li>구역 1과 구역 2를 연속으로 진행하며, 먼저 2라운드를 이기면 승리합니다.</li>
+          </ul>
+          <a href="../#two-player">전체 2인 규칙 보기 →</a>
+        </details>
+      </section>
+
+      <section class="log-panel">
+        <div><p class="eyebrow">TABLE LOG</p><h2>진행 기록</h2></div>
+        <ol id="game-log" aria-live="polite"></ol>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="result-dialog" class="game-dialog" aria-labelledby="result-title">
+    <p class="dialog-kicker" id="result-kicker">ROUND COMPLETE</p>
+    <h2 id="result-title">라운드 종료</h2>
+    <p id="result-copy"></p>
+    <div class="dialog-score"><span>나 <b id="dialog-human-wins">0</b></span><i>:</i><span><b id="dialog-computer-wins">0</b> 컴퓨터</span></div>
+    <div class="dialog-actions">
+      <button id="next-round" class="primary-button" type="button">다음 라운드</button>
+      <button id="result-restart" class="primary-button" type="button" hidden>다시 플레이</button>
+      <a href="../">규칙 확인</a>
+    </div>
+  </dialog>
+
+  <script type="module" src="./game.js?v=1.0.0"></script>
+</body>
+</html>
