@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#211a35">
+  <meta name="description" content="That’s Not a Hat을 규칙 기반 컴퓨터 2명과 혼자 플레이하는 웹 게임">
+  <title>That’s Not a Hat 혼자 플레이 | 보드게임 한국어 매뉴얼</title>
+  <link rel="stylesheet" href="./game.css?v=1.0.0">
+</head>
+<body>
+  <header class="game-header">
+    <a href="../">← 한국어 매뉴얼</a>
+    <span>THAT’S NOT A HAT · SOLO TABLE</span>
+    <a class="archive-link" href="../../../">게임 목록</a>
+  </header>
+
+  <main>
+    <section id="start-screen" class="start-screen">
+      <div class="title-lockup">
+        <p>MEMORY · BLUFF · THREE PLAYERS</p>
+        <h1>THAT’S<br><strong>NOT A HAT</strong></h1>
+        <p class="start-copy">컴퓨터 플레이어 2명과 공식 3인 기본 규칙으로 대결합니다. 선물을 기억하고, 잊었다면 자연스럽게 허세를 부리세요.</p>
+      </div>
+      <div class="setup-panel">
+        <fieldset>
+          <legend>컴퓨터 난이도</legend>
+          <label class="choice"><input type="radio" name="difficulty" value="easy"><span><b>쉬움</b><small>기억이 빨리 흐려지고 잘못 의심하기도 합니다.</small></span></label>
+          <label class="choice selected"><input type="radio" name="difficulty" value="normal" checked><span><b>보통</b><small>기억과 의심이 적당한 균형을 이룹니다.</small></span></label>
+          <label class="choice"><input type="radio" name="difficulty" value="hard"><span><b>어려움</b><small>본 선물을 오래 기억하고 거짓말을 잘 잡아냅니다.</small></span></label>
+        </fieldset>
+        <button id="start-game" class="primary-button" type="button">혼자 게임 시작</button>
+        <p class="setup-note">사람 1명 + 컴퓨터 2명 · 벌점 3점 즉시 종료</p>
+      </div>
+    </section>
+
+    <section id="game-screen" class="game-screen" hidden>
+      <header class="status-header" aria-live="polite">
+        <div><span>TURN</span><strong id="turn-count">1</strong></div>
+        <p><small id="difficulty-label">보통 난이도</small><strong id="phase-title">선물을 확인하세요</strong><span id="phase-copy">컴퓨터가 생각하고 있습니다.</span></p>
+        <button id="restart-button" type="button">새 게임</button>
+      </header>
+
+      <section class="table" aria-label="That’s Not a Hat 게임판">
+        <section id="player-1" class="player-zone ai-zone" aria-label="컴퓨터 A"></section>
+        <section id="player-2" class="player-zone ai-zone" aria-label="컴퓨터 B"></section>
+
+        <section class="table-center">
+          <div class="shop-wrap">
+            <p>GIFT SHOP <b id="shop-count">0</b></p>
+            <div id="shop-card" class="gift-card face-card" aria-label="선물 가게 맨 위 카드"></div>
+          </div>
+          <div class="offer-wrap">
+            <p id="offer-route">선물을 전달하는 중</p>
+            <div id="offer-card" class="gift-card card-back" aria-live="polite"></div>
+            <blockquote id="offer-claim">“멋진 선물이에요.”</blockquote>
+          </div>
+        </section>
+
+        <section id="player-0" class="player-zone human-zone" aria-label="내 자리"></section>
+      </section>
+
+      <aside class="control-panel" aria-live="polite">
+        <p class="eyebrow">YOUR DECISION</p>
+        <h2 id="action-title">컴퓨터 차례입니다</h2>
+        <p id="action-help">잠시 기다리면 컴퓨터가 규칙에 따라 행동합니다.</p>
+        <div id="response-controls" class="button-row" hidden>
+          <button id="accept-button" class="primary-button" type="button">고마워요 · 받기</button>
+          <button id="reject-button" class="danger-button" type="button">그건 아니야 · 거절</button>
+        </div>
+        <form id="claim-form" hidden>
+          <label for="claim-select">무슨 선물이라고 말할까요?</label>
+          <select id="claim-select" required></select>
+          <button id="claim-button" class="primary-button" type="submit">이 이름으로 건네기</button>
+        </form>
+        <details class="quick-rules">
+          <summary>빠른 규칙</summary>
+          <ul>
+            <li>받으면 뒤집지 말고 내 선물 맨 위에 놓습니다.</li>
+            <li>그다음 내 가장 오래된 선물을 화살표 방향으로 건넵니다.</li>
+            <li>거절 판정에서 틀린 사람이 공개된 카드를 벌점으로 받습니다.</li>
+            <li>누군가 벌점 3점이 되면 즉시 종료하고 최저 벌점이 승리합니다.</li>
+          </ul>
+          <a href="../">전체 한국어 규칙 보기 →</a>
+        </details>
+      </aside>
+
+      <section class="log-panel">
+        <div><p class="eyebrow">TABLE TALK</p><h2>진행 기록</h2></div>
+        <ol id="game-log" aria-live="polite"></ol>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="reveal-dialog" class="game-dialog reveal-dialog" aria-labelledby="reveal-title">
+    <p class="dialog-kicker">NEW GIFT · REMEMBER IT</p>
+    <h2 id="reveal-title">새 선물을 공개합니다</h2>
+    <p id="reveal-copy">잠시 뒤 카드를 뒤집어 화살표 방향으로 건넵니다.</p>
+    <div id="reveal-card" class="gift-card face-card" aria-live="assertive"></div>
+  </dialog>
+
+  <dialog id="result-dialog" class="game-dialog" aria-labelledby="result-title">
+    <p class="dialog-kicker">GAME OVER</p>
+    <h2 id="result-title">게임 종료</h2>
+    <p id="result-copy"></p>
+    <div id="result-scores" class="result-scores"></div>
+    <div class="dialog-actions"><button id="result-restart" class="primary-button" type="button">다시 플레이</button><a class="manual-button" href="../">규칙 확인</a></div>
+  </dialog>
+
+  <script type="module" src="./game.js?v=1.0.0"></script>
+</body>
+</html>
