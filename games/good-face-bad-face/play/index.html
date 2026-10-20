@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#172c34">
+  <meta name="description" content="Good Face Bad Face를 컴퓨터 2명과 플레이하는 한국어 1인용 웹 게임">
+  <title>Good Face Bad Face 혼자 플레이 | 보드게임 한국어 매뉴얼</title>
+  <link rel="stylesheet" href="./game.css?v=1.0.0">
+</head>
+<body>
+  <header class="game-header">
+    <a href="../">← 한국어 매뉴얼</a>
+    <span>GOOD FACE BAD FACE · SOLO</span>
+    <a class="archive-link" href="../../../">게임 목록</a>
+  </header>
+
+  <main>
+    <section id="start-screen" class="start-screen">
+      <div class="title-lockup">
+        <p>LUCK · BLUFF · THREE PLAYERS</p>
+        <h1>GOOD FACE<br><strong>BAD FACE</strong></h1>
+        <p class="start-copy">컴퓨터 두 명과 3인 기본 규칙으로 대결합니다. 비밀 스택을 만들고, 좋은 얼굴 4장을 먼저 모으세요.</p>
+      </div>
+      <div class="setup-panel">
+        <fieldset>
+          <legend>컴퓨터 난이도</legend>
+          <label class="choice"><input type="radio" name="difficulty" value="easy"><span><b>쉬움</b><small>위험을 크게 따지지 않고 행동합니다.</small></span></label>
+          <label class="choice selected"><input type="radio" name="difficulty" value="normal" checked><span><b>보통</b><small>공개된 카드와 확률을 적당히 살핍니다.</small></span></label>
+          <label class="choice"><input type="radio" name="difficulty" value="hard"><span><b>어려움</b><small>자기 스택의 순서와 공개 정보를 적극 활용합니다.</small></span></label>
+        </fieldset>
+        <button id="start-game" class="primary-button" type="button">혼자 게임 시작</button>
+        <p class="setup-note">사람 1명 + 컴퓨터 2명 · 좋은 얼굴 10장 / 나쁜 얼굴 5장</p>
+      </div>
+    </section>
+
+    <section id="game-screen" class="game-screen" hidden>
+      <header class="status-header" aria-live="polite">
+        <div><span>ACTION</span><strong id="turn-count">1</strong></div>
+        <p><small id="difficulty-label">보통 난이도</small><strong id="phase-title">스택 만들기</strong><span id="phase-copy">카드를 순서대로 고르세요.</span></p>
+        <button id="restart-button" type="button">새 게임</button>
+      </header>
+
+      <section class="table" aria-label="Good Face Bad Face 게임판">
+        <section id="player-1" class="player-zone ai-zone" aria-label="컴퓨터 A"></section>
+        <section id="player-2" class="player-zone ai-zone" aria-label="컴퓨터 B"></section>
+        <section class="stack-zone">
+          <div><p class="eyebrow">SECRET STACK</p><h2>비밀 스택 <b id="stack-count">0</b></h2></div>
+          <div id="table-stack" class="card-row" aria-label="현재 스택"></div>
+        </section>
+        <section id="player-0" class="player-zone human-zone" aria-label="내 자리"></section>
+      </section>
+
+      <aside class="control-panel" aria-live="polite">
+        <p class="eyebrow">YOUR DECISION</p>
+        <h2 id="action-title">카드를 골라 스택을 만드세요</h2>
+        <p id="action-help">손패를 누른 순서가 스택의 위에서 아래 순서가 됩니다.</p>
+        <div id="build-controls">
+          <p class="control-label">내 손패</p>
+          <div id="hand-cards" class="card-row hand-row"></div>
+          <p class="control-label">스택 순서 · 맨 위부터</p>
+          <ol id="stack-order" class="stack-order"></ol>
+          <button id="build-stack" class="primary-button" type="button" disabled>이 순서로 스택 보내기</button>
+        </div>
+        <div id="decision-controls" class="button-row" hidden>
+          <button id="flip-card" class="primary-button" type="button">맨 위 카드 뒤집기</button>
+          <button id="pass-stack" type="button">왼쪽으로 넘기기</button>
+          <button id="take-back" type="button">남은 스택 회수하고 종료</button>
+        </div>
+        <details class="quick-rules">
+          <summary>빠른 규칙</summary>
+          <ul>
+            <li>좋은 얼굴 4장을 파티에 모으면 즉시 승리합니다.</li>
+            <li>좋은 얼굴 뒤에는 다시 뒤집거나 스택을 넘깁니다.</li>
+            <li>나쁜 얼굴 뒤에는 자동으로 스택을 넘깁니다.</li>
+            <li>자기 스택이 돌아오면 반드시 한 장을 뒤집습니다.</li>
+          </ul>
+          <a href="../">전체 한국어 규칙 보기 →</a>
+        </details>
+      </aside>
+
+      <section class="log-panel">
+        <div><p class="eyebrow">TABLE LOG</p><h2>진행 기록</h2></div>
+        <ol id="game-log" aria-live="polite"></ol>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="result-dialog" class="game-dialog" aria-labelledby="result-title">
+    <p class="dialog-kicker">GAME OVER</p>
+    <h2 id="result-title">게임 종료</h2>
+    <p id="result-copy"></p>
+    <div id="result-parties" class="result-parties"></div>
+    <div class="dialog-actions"><button id="result-restart" class="primary-button" type="button">다시 플레이</button><a class="manual-button" href="../">규칙 확인</a></div>
+  </dialog>
+
+  <script type="module" src="./game.js?v=1.0.0"></script>
+</body>
+</html>
