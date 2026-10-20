@@ -27,6 +27,12 @@ test('브라우저 컨트롤러는 관찰 뷰와 legalMoves를 사용하고 새 
   assert.doesNotMatch(script, /\.innerHTML\s*=/);
 });
 
+test('사람 플레이어는 스택 만들기 외의 결정 중에도 자기 손패를 확인할 수 있다', async () => {
+  const script = await read('game.js');
+  assert.match(script, /own-hand-row/);
+  assert.match(script, /player\.hand\.map\(card => faceCard\(card\)\)/);
+});
+
 test('게임 CSS는 모바일 재배치·자연스러운 줄바꿈·44px 터치 목표·스택 내부 스크롤을 제공한다', async () => {
   const css = await read('game.css');
   assert.match(css, /min-width:\s*0/);

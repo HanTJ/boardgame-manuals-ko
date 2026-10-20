@@ -71,7 +71,24 @@ function renderPlayer(view, index) {
     empty.textContent = '아직 파티 카드가 없습니다.';
     party.append(empty);
   }
-  zone.replaceChildren(heading, partyLabel, party);
+  const children = [heading, partyLabel, party];
+  if (index === 0) {
+    const handLabel = document.createElement('p');
+    handLabel.className = 'party-label';
+    handLabel.textContent = '내 손패 · 언제든 확인 가능';
+    const ownHand = document.createElement('div');
+    ownHand.className = 'card-row own-hand-row';
+    if (player.hand.length) {
+      ownHand.append(...player.hand.map(card => faceCard(card)));
+    } else {
+      const empty = document.createElement('span');
+      empty.className = 'empty-party';
+      empty.textContent = '손패가 없습니다.';
+      ownHand.append(empty);
+    }
+    children.push(handLabel, ownHand);
+  }
+  zone.replaceChildren(...children);
 }
 
 function renderTable(view) {
