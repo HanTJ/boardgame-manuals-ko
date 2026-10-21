@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#123d36">
+  <meta name="description" content="TUCANO를 컴퓨터와 플레이하는 한국어 1인용 웹 게임">
+  <title>TUCANO 혼자 플레이 | 보드게임 한국어 매뉴얼</title>
+  <link rel="stylesheet" href="./game.css?v=1.0.0">
+</head>
+<body>
+  <header class="game-header"><a href="../">← 한국어 매뉴얼</a><strong>TUCANO · SOLO</strong><a href="../../../">게임 목록</a></header>
+  <main>
+    <section id="start-screen" class="start-screen">
+      <div><p class="kicker">FRUIT · TACTICS · TOUCANS</p><h1>TUCANO</h1><p>세 과일 열 중 하나를 통째로 가져오고, 투칸으로 과일을 주고 빼앗고 보호하세요. 사람 1명과 컴퓨터 1명이 공식 2인 규칙으로 대결합니다.</p></div>
+      <div class="setup-panel"><fieldset><legend>컴퓨터 난이도</legend>
+        <label><input type="radio" name="difficulty" value="easy"><span><b>쉬움</b><small>가능한 행동 중 가볍게 선택합니다.</small></span></label>
+        <label class="selected"><input type="radio" name="difficulty" value="normal" checked><span><b>보통</b><small>공개 과일과 투칸 효과를 살핍니다.</small></span></label>
+        <label><input type="radio" name="difficulty" value="hard"><span><b>어려움</b><small>공개 정보로 가치와 효과 순서를 더 강하게 평가합니다.</small></span></label>
+      </fieldset><button id="start-game" class="primary" type="button">혼자 게임 시작</button></div>
+    </section>
+
+    <section id="game-screen" class="game-screen" hidden>
+      <header class="status"><div><small>TURN</small><b id="turn-count">1 / 24</b></div><div><small id="difficulty-label">보통</small><h1 id="phase-title">열을 고르세요</h1></div><div><small>DRAW</small><b id="draw-count">66</b></div><button id="restart-button" type="button">새 게임</button></header>
+      <section id="player-1" class="player-zone" aria-label="컴퓨터 영역"></section>
+      <section class="table" aria-label="세 과일 열">
+        <button id="column-0" class="column" type="button" data-column-index="0"><span>가까운 열</span><span class="column-cards"></span></button>
+        <button id="column-1" class="column" type="button" data-column-index="1"><span>가운데 열</span><span class="column-cards"></span></button>
+        <button id="column-2" class="column" type="button" data-column-index="2"><span>먼 열</span><span class="column-cards"></span></button>
+      </section>
+      <section id="player-0" class="player-zone human" aria-label="내 영역"></section>
+      <aside class="control-panel"><p class="kicker">YOUR ACTION</p><h2 id="action-title">열을 고르세요</h2><p id="action-help">열의 카드를 모두 가져옵니다.</p><div id="action-controls" class="action-controls"></div>
+        <details><summary>빠른 규칙</summary><ul><li>선택한 열의 모든 카드를 가져옵니다.</li><li>투칸이 여러 장이면 해결 순서를 고릅니다.</li><li>보호 카드는 누구도 게임 중 내용을 볼 수 없습니다.</li><li>뽑기 더미가 빈 뒤 두 차례를 더 진행하고 마지막 열은 버립니다.</li></ul><a href="../">전체 한국어 규칙 보기 →</a></details>
+      </aside>
+      <section class="log-panel"><p class="kicker">TABLE LOG</p><h2>진행 기록</h2><ol id="game-log" aria-live="polite"></ol></section>
+    </section>
+  </main>
+  <dialog id="result-dialog" aria-labelledby="result-title"><p class="kicker">GAME OVER</p><h2 id="result-title">게임 종료</h2><p id="result-copy"></p><div id="score-breakdown"></div><div class="dialog-actions"><button id="result-restart" class="primary" type="button">다시 플레이</button><a href="../">규칙 확인</a></div></dialog>
+  <script type="module" src="./game.js?v=1.0.0"></script>
+</body>
+</html>
