@@ -14,7 +14,7 @@
 - [dnup](./games/dnup/) — Space Cowboys·Asmodee, 2026 정식판 · [1인용 대전 웹 게임](./games/dnup/play/)
 - [That’s Not a Hat](./games/thats-not-a-hat/) — Ravensburger, 2023 영문판 · [1인용 대전 웹 게임](./games/thats-not-a-hat/play/)
 - [Good Face Bad Face](./games/good-face-bad-face/) — Big Potato Games, 2023 영문판 · [1인용 대전 웹 게임](./games/good-face-bad-face/play/)
-- [Tucano](./games/tucano/) — Helvetiq, 2021 영문판
+- [Tucano](./games/tucano/) — Helvetiq, 2021 영문판 · [1인용 웹 게임](./games/tucano/play/)
 
 ## 디렉터리 구조
 
@@ -52,7 +52,8 @@
     │   ├── index.html         # 게임별 한국어 매뉴얼
     │   └── play/              # 컴퓨터 2명과 3인 기본 규칙 대전
     └── tucano/
-        └── index.html         # 게임별 한국어 매뉴얼
+        ├── index.html         # 게임별 한국어 매뉴얼
+        └── play/              # 컴퓨터와 공식 2인 규칙 대전
 ```
 
 새 게임은 `games/<영문-슬러그>/index.html`에 추가하고 루트 `index.html`의 목록에 연결합니다.
