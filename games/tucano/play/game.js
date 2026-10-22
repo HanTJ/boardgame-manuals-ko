@@ -41,6 +41,34 @@ function cardElement(card, interactive = false) {
   element.append(title, detail);
   return element;
 }
+function groupCards(cards) {
+  const groups = [];
+  const byKey = new Map();
+  for (const card of cards) {
+    const key = card.type === 'fruit' ? `fruit:${card.fruit}` : card.type === 'toucan' ? `toucan:${card.effect}` : card.type;
+    if (!byKey.has(key)) {
+      const group = [];
+      byKey.set(key, group);
+      groups.push(group);
+    }
+    byKey.get(key).push(card);
+  }
+  return groups;
+}
+function cardStackElement(cards) {
+  const stack = document.createElement('div');
+  stack.className = 'card-stack';
+  const count = document.createElement('span');
+  count.className = 'card-count';
+  count.textContent = `${cards.length}장`;
+  const cardName = cards[0].type === 'fruit' ? FRUIT_NAMES[cards[0].fruit] : cards[0].type === 'joker' ? '조커' : `투칸 ${EFFECT_NAMES[cards[0].effect]}`;
+  count.setAttribute('aria-label', `${cardName} ${cards.length}장`);
+  const cardsElement = document.createElement('div');
+  cardsElement.className = 'card-stack-cards';
+  cardsElement.append(...cards.map(card => cardElement(card)));
+  stack.append(count, cardsElement);
+  return stack;
+}
 function cardBack() { const card = document.createElement('span'); card.className = 'card-back'; card.setAttribute('aria-label', '보호된 카드'); return card; }
 function empty(text) { const item = document.createElement('span'); item.className = 'empty'; item.textContent = text; return item; }
 
@@ -53,7 +81,7 @@ function renderPlayer(view, index) {
   const summary = document.createElement('b'); summary.textContent = `공개 ${player.faceUp.length} · 보호 ${player.faceDown.length}`;
   head.append(name, summary);
   const openLabel = document.createElement('p'); openLabel.className = 'zone-label'; openLabel.textContent = '공개 과일';
-  const open = document.createElement('div'); open.className = 'card-row'; open.append(...(player.faceUp.length ? player.faceUp.map(card => cardElement(card)) : [empty('공개 카드가 없습니다.') ]));
+  const open = document.createElement('div'); open.className = 'card-row'; open.append(...(player.faceUp.length ? groupCards(player.faceUp).map(cardStackElement) : [empty('공개 카드가 없습니다.') ]));
   const hiddenLabel = document.createElement('p'); hiddenLabel.className = 'zone-label'; hiddenLabel.textContent = `보호된 카드 · 내용 비공개 (${player.faceDown.length}장)`;
   const hidden = document.createElement('div'); hidden.className = 'card-row'; hidden.append(...(player.faceDown.length ? player.faceDown.map(cardBack) : [empty('보호된 카드가 없습니다.') ]));
   zone.replaceChildren(head, openLabel, open, hiddenLabel, hidden);
