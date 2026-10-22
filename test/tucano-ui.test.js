@@ -62,7 +62,7 @@ test('manual, README, and package check integrate the solo game', async () => {
     readFile(new URL('../README.md', import.meta.url), 'utf8'),
     readFile(new URL('../package.json', import.meta.url), 'utf8')
   ]);
-  assert.match(manual, /href="\.\/play\/"/);
+  assert.match(manual, /<header class="manual-hero">[\s\S]*?<a class="play-game-link" href="\.\/play\/">[\s\S]*?혼자 플레이[\s\S]*?<\/header>/);
   assert.match(manual, /혼자 플레이/);
   assert.match(manual, /컴퓨터/);
   assert.match(game, /href="\.\.\/"/);
