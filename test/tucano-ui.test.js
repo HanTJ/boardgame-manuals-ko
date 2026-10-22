@@ -30,6 +30,11 @@ test('controller renders safely from human observation and validates every human
   assert.doesNotMatch(script, /\.innerHTML\s*=/);
   assert.match(script, /dataset\.cardId/);
   assert.match(script, /dataset\.fruit/);
+  assert.match(script, /function groupCards\(cards\)/);
+  assert.match(script, /function cardStackElement\(cards\)/);
+  assert.match(script, /className = 'card-count'/);
+  assert.match(script, /textContent = `\$\{cards\.length\}장`/);
+  assert.match(script, /groupCards\(player\.faceUp\)\.map\(cardStackElement\)/);
 });
 
 test('restart invalidates timers and result dialog cannot be canceled', async () => {
@@ -54,6 +59,9 @@ test('mobile CSS prevents page overflow and keeps controls accessible', async ()
   assert.match(css, /overflow-wrap:\s*anywhere/);
   assert.match(css, /input:focus-visible\+span/);
   assert.match(css, /@media\s*\(max-width:\s*700px\)/);
+  assert.match(css, /\.card-stack\{/);
+  assert.match(css, /\.card-count\{/);
+  assert.match(css, /\.card-stack-cards \.card\+\.card\{[^}]*margin-left:\s*-\d+px/);
 });
 
 test('manual, README, and package check integrate the solo game', async () => {
