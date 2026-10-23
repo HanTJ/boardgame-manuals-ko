@@ -186,15 +186,25 @@ export function applyMove(game, move, playerIndex) {
     const index = next.pendingToucans.findIndex(card => card.id === move.cardId);
     next.activeToucan = next.pendingToucans.splice(index, 1)[0];
     if (next.activeToucan.effect === 'hide') {
-      actor.faceDown.push(...actor.faceUp);
-      actor.faceUp = [];
-      next.log.unshift(`${actor.name}이(가) 공개 과일을 모두 보호했습니다.`);
+      if (actor.faceUp.length) {
+        actor.faceDown.push(...actor.faceUp);
+        actor.faceUp = [];
+        next.log.unshift(`${actor.name}이(가) 공개 과일을 모두 보호했습니다.`);
+      } else {
+        next.log.unshift(`${actor.name}이(가) 과일 보호 효과를 사용할 수 없어 버렸습니다.`);
+      }
       discardActive(next);
     } else if (next.activeToucan.effect === 'give') {
       if (actor.faceUp.length) next.phase = 'giveTarget';
-      else discardActive(next);
+      else {
+        next.log.unshift(`${actor.name}이(가) 과일 주기 효과를 사용할 수 없어 버렸습니다.`);
+        discardActive(next);
+      }
     } else if (opponent.faceUp.length) next.phase = 'stealTarget';
-    else discardActive(next);
+    else {
+      next.log.unshift(`${actor.name}이(가) 과일 빼앗기 효과를 사용할 수 없어 버렸습니다.`);
+      discardActive(next);
+    }
     return next;
   }
   if (move.type === 'giveTarget' || move.type === 'stealTarget') {

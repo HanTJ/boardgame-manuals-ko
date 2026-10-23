@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#123d36">
   <meta name="description" content="TUCANO를 컴퓨터와 플레이하는 한국어 1인용 웹 게임">
   <title>TUCANO 혼자 플레이 | 보드게임 한국어 매뉴얼</title>
-  <link rel="stylesheet" href="./game.css?v=1.1.0">
+  <link rel="stylesheet" href="./game.css?v=1.2.0">
 </head>
 <body>
   <header class="game-header"><a href="../">← 한국어 매뉴얼</a><strong>TUCANO · SOLO</strong><a href="../../../">게임 목록</a></header>
@@ -29,13 +29,13 @@
         <button id="column-2" class="column" type="button" data-column-index="2"><span>먼 열</span><span class="column-cards"></span></button>
       </section>
       <section id="player-0" class="player-zone human" aria-label="내 영역"></section>
-      <aside class="control-panel"><p class="kicker">YOUR ACTION</p><h2 id="action-title">열을 고르세요</h2><p id="action-help">열의 카드를 모두 가져옵니다.</p><div id="action-controls" class="action-controls"></div>
+      <aside class="control-panel"><p class="kicker">YOUR ACTION</p><h2 id="action-title">열을 고르세요</h2><p id="action-help">열의 카드를 모두 가져옵니다.</p><div id="toucan-queue" class="toucan-queue" aria-label="투칸 효과 진행 상황" aria-live="polite" hidden></div><div id="action-controls" class="action-controls"></div>
         <details><summary>빠른 규칙</summary><ul><li>선택한 열의 모든 카드를 가져옵니다.</li><li>투칸이 여러 장이면 해결 순서를 고릅니다.</li><li>보호 카드는 누구도 게임 중 내용을 볼 수 없습니다.</li><li>뽑기 더미가 빈 뒤 두 차례를 더 진행하고 마지막 열은 버립니다.</li></ul><a href="../">전체 한국어 규칙 보기 →</a></details>
       </aside>
       <section class="log-panel"><p class="kicker">TABLE LOG</p><h2>진행 기록</h2><ol id="game-log" aria-live="polite"></ol></section>
     </section>
   </main>
   <dialog id="result-dialog" aria-labelledby="result-title"><p class="kicker">GAME OVER</p><h2 id="result-title">게임 종료</h2><p id="result-copy"></p><div id="score-breakdown"></div><div class="dialog-actions"><button id="result-restart" class="primary" type="button">다시 플레이</button><a href="../">규칙 확인</a></div></dialog>
-  <script type="module" src="./game.js?v=1.1.0"></script>
+  <script type="module" src="./game.js?v=1.2.0"></script>
 </body>
 </html>

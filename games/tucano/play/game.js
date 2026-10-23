@@ -1,4 +1,4 @@
-import { applyMove, chooseAiMove, createGame, FRUIT_RULES, legalMoves, projectObservation } from './engine.js?v=1.0.0';
+import { applyMove, chooseAiMove, createGame, FRUIT_RULES, legalMoves, projectObservation } from './engine.js?v=1.1.0';
 
 const $ = selector => document.querySelector(selector);
 const startScreen = $('#start-screen');
@@ -103,6 +103,19 @@ function actionLabel(move, view) {
   if (move.type === 'assignJoker') return `조커를 ${FRUIT_NAMES[move.fruit]}로 지정`;
   return '선택';
 }
+function renderToucanQueue(view) {
+  const queue = $('#toucan-queue');
+  const cards = [...(view.activeToucan ? [{ ...view.activeToucan, active: true }] : []), ...view.pendingToucans];
+  queue.hidden = cards.length === 0;
+  queue.replaceChildren(...cards.map(card => {
+    const effect = document.createElement('span');
+    effect.className = 'toucan-effect';
+    effect.dataset.effect = card.effect;
+    if (card.active) effect.classList.add('active');
+    effect.textContent = `${card.active ? '해결 중' : '대기'} · ${EFFECT_NAMES[card.effect]}`;
+    return effect;
+  }));
+}
 function renderActions(view) {
   const humanTurn = view.currentPlayer === 0 && view.phase !== 'gameOver';
   const moves = humanTurn ? legalMoves(game, 0) : [];
@@ -110,6 +123,10 @@ function renderActions(view) {
   const controls = $('#action-controls');
   controls.replaceChildren(...actionable.map(move => {
     const button = document.createElement('button'); button.type = 'button'; button.textContent = actionLabel(move, view);
+    if (move.type === 'chooseToucan') {
+      button.classList.add('toucan-choice');
+      button.dataset.effect = view.pendingToucans.find(card => card.id === move.cardId).effect;
+    }
     button.addEventListener('click', () => performHuman(move)); return button;
   }));
   const titles = { chooseColumn: ['열을 고르세요', '선택한 열의 모든 카드를 가져옵니다.'], chooseToucan: ['투칸 순서를 고르세요', '효과 하나를 선택해 해결합니다.'], giveTarget: ['줄 카드를 고르세요', '내 공개 카드 1장을 컴퓨터에게 줍니다.'], stealTarget: ['빼앗을 카드를 고르세요', '컴퓨터의 공개 카드 1장을 가져옵니다.'], jokerAssignment: ['조커 과일을 고르세요', '완성되지 않은 과일 세트에 조커를 배정합니다.'] };
@@ -140,7 +157,7 @@ function render() {
   setText('#turn-count', `${Math.min(24, view.turn)} / 24`); setText('#draw-count', view.drawPile.length); setText('#difficulty-label', `${difficultyName(view.difficulty)} 컴퓨터`);
   const phaseNames = { chooseColumn: `${view.players[view.currentPlayer].name}의 열 선택`, chooseToucan: '투칸 효과 순서', giveTarget: '과일 주기', stealTarget: '과일 빼앗기', jokerAssignment: '조커 지정', gameOver: '게임 종료' };
   setText('#phase-title', phaseNames[view.phase]);
-  renderPlayer(view, 0); renderPlayer(view, 1); renderColumns(view); renderActions(view); renderLog(view); showResult(view);
+  renderPlayer(view, 0); renderPlayer(view, 1); renderColumns(view); renderToucanQueue(view); renderActions(view); renderLog(view); showResult(view);
 }
 function performHuman(move) {
   if (!game || !legalMoves(game, 0).some(candidate => sameMove(candidate, move))) return;

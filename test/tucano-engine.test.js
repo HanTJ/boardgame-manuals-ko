@@ -112,6 +112,43 @@ test('toucan order changes target availability and hide appends protected cards'
   assert.equal(game.players[0].faceDown.length, 2);
   game = applyMove(game, { type: 'chooseToucan', cardId: 'tg' }, 0);
   assert.equal(game.toucanDiscard.length, 2, 'unusable give is discarded');
+  assert.match(game.log[0], /과일 주기.*사용할 수 없어 버렸습니다/);
+});
+
+test('three Toucan effects resolve one at a time and return to the remaining effect choices', () => {
+  const give = { id: 'tg-flow', type: 'toucan', effect: 'give' };
+  const steal = { id: 'ts-flow', type: 'toucan', effect: 'steal' };
+  const hide = { id: 'th-flow', type: 'toucan', effect: 'hide' };
+  let game = blankGame({
+    phase: 'chooseToucan', pendingToucans: [give, steal, hide], finalDiscard: [],
+    drawPile: [fruit('refill-a', 'acai'), fruit('refill-b', 'banana'), fruit('refill-c', 'fig')],
+    players: [
+      { name: '나', kind: 'human', faceUp: [fruit('own-flow', 'fig')], faceDown: [], jokerFruit: null },
+      { name: '컴퓨터', kind: 'ai', faceUp: [fruit('other-flow', 'lime')], faceDown: [], jokerFruit: null }
+    ]
+  });
+
+  assert.deepEqual(legalMoves(game, 0).map(move => move.cardId), ['tg-flow', 'ts-flow', 'th-flow']);
+  game = applyMove(game, { type: 'chooseToucan', cardId: 'ts-flow' }, 0);
+  assert.equal(game.phase, 'stealTarget');
+  game = applyMove(game, { type: 'stealTarget', cardId: 'other-flow' }, 0);
+  assert.equal(game.phase, 'chooseToucan');
+  assert.deepEqual(legalMoves(game, 0).map(move => move.cardId), ['tg-flow', 'th-flow']);
+
+  game = applyMove(game, { type: 'chooseToucan', cardId: 'tg-flow' }, 0);
+  assert.equal(game.phase, 'giveTarget');
+  game = applyMove(game, { type: 'giveTarget', cardId: 'own-flow' }, 0);
+  assert.equal(game.phase, 'chooseToucan');
+  assert.deepEqual(legalMoves(game, 0).map(move => move.cardId), ['th-flow']);
+
+  game = applyMove(game, { type: 'chooseToucan', cardId: 'th-flow' }, 0);
+  assert.equal(game.phase, 'chooseColumn');
+  assert.equal(game.currentPlayer, 1);
+  assert.equal(game.pendingToucans.length, 0);
+  assert.equal(game.activeToucan, null);
+  assert.equal(game.toucanDiscard.length, 3);
+  assert.ok(game.players.flatMap(player => player.faceUp).every(card => card.type !== 'toucan'));
+  assert.ok(game.players.flatMap(player => player.faceDown).every(card => card.type !== 'toucan'));
 });
 
 test('give and steal only target current face-up collectibles including Joker', () => {
