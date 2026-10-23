@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2f183f">
+  <meta name="description" content="CLUE Suspect Card Game을 컴퓨터와 플레이하는 한국어 1인용 웹 게임">
+  <title>CLUE Suspect 혼자 플레이 | 보드게임 한국어 매뉴얼</title>
+  <link rel="stylesheet" href="./game.css?v=1.0.0">
+</head>
+<body>
+  <header class="game-header"><a href="../">← 한국어 매뉴얼</a><strong>CLUE SUSPECT · SOLO</strong><a href="../../../">게임 목록</a></header>
+  <main>
+    <section id="start-screen" class="start-screen">
+      <div class="intro"><p class="kicker">WHO · WITH WHAT · WHERE</p><h1>CLUE<br>SUSPECT</h1><p>질문으로 무죄인 증거를 지우고 비밀 봉투 속 용의자·흉기·장소를 밝혀내세요. 사람과 컴퓨터가 공식 고급 2인 규칙으로 대결합니다. 나이를 비교할 수 없는 1인용 대전이므로 시작 탐정은 무작위로 정합니다.</p></div>
+      <div class="setup-panel"><fieldset><legend>컴퓨터 난이도</legend>
+        <label><input type="radio" name="difficulty" value="easy"><span><b>쉬움</b><small>질문을 넓게 고르고 증거를 단순하게 공개합니다.</small></span></label>
+        <label class="selected"><input type="radio" name="difficulty" value="normal" checked><span><b>보통</b><small>남은 후보를 비교해 정보가 되는 질문을 고릅니다.</small></span></label>
+        <label><input type="radio" name="difficulty" value="hard"><span><b>어려움</b><small>내 증거를 미끼로 사용하고 이미 보여 준 정보를 재활용합니다.</small></span></label>
+      </fieldset><button id="start-game" class="primary" type="button">수사 시작</button></div>
+    </section>
+
+    <section id="game-screen" class="game-screen" hidden>
+      <header class="status"><div><small>TURN</small><b id="turn-count">1</b></div><div><small id="difficulty-label">보통</small><h1 id="phase-title">수사 준비</h1></div><button id="restart-button" type="button">새 게임</button></header>
+      <section id="computer-zone" class="detective-zone computer" aria-label="컴퓨터 탐정 영역"></section>
+      <section id="envelope" class="envelope" aria-label="비밀 봉투"><p class="kicker">CONFIDENTIAL</p><h2>비밀 봉투</h2><div class="envelope-cards" aria-label="숨겨진 정답 카드 3장"><span>용의자</span><span>장소</span><span>흉기</span></div></section>
+      <section class="workspace">
+        <section class="notebook-panel"><p class="kicker">CASE FILE</p><h2>내 사건 파일</h2><p>질문할 항목 2개를 고르세요. 무죄로 확인된 항목은 자동으로 표시됩니다.</p><div id="case-file" class="case-file"></div></section>
+        <aside class="control-panel"><p class="kicker">YOUR ACTION</p><h2 id="action-title">질문할 증거를 고르세요</h2><p id="action-help">서로 다른 항목 2개를 선택할 수 있습니다.</p><div id="selection-summary" class="selection-summary" aria-live="polite"></div><div id="action-controls" class="action-controls"></div><button id="accuse-button" class="danger" type="button">고발하기</button>
+          <details><summary>빠른 규칙</summary><ul><li>질문은 서로 다른 항목 2개를 말합니다.</li><li>상대가 둘 다 갖고 있다면 그중 1장만 보여 줍니다.</li><li>한 명이 고발하면 상대도 반드시 고발합니다.</li><li>첫 고발자의 정답을 먼저 판정합니다.</li></ul><a href="../">전체 한국어 규칙 보기 →</a></details>
+        </aside>
+      </section>
+      <section class="human-zone"><p class="kicker">MY EVIDENCE</p><h2>내 증거 카드</h2><div id="human-evidence" class="evidence-row"></div></section>
+      <section class="log-panel"><p class="kicker">INVESTIGATION LOG</p><h2>수사 기록</h2><ol id="game-log" aria-live="polite"></ol></section>
+    </section>
+  </main>
+
+  <dialog id="accusation-dialog" aria-labelledby="accusation-title"><form method="dialog"><p class="kicker">ACCUSATION</p><h2 id="accusation-title">고발할 세 항목</h2><p>용의자·장소·흉기를 하나씩 고르세요. 상대도 즉시 고발하며 되돌릴 수 없습니다.</p><div id="accusation-options"></div><div class="dialog-actions"><button value="cancel" type="submit">취소</button><button id="submit-accusation" class="danger" value="default" type="button">고발 확정</button></div></form></dialog>
+  <dialog id="result-dialog" aria-labelledby="result-title"><p class="kicker">CASE CLOSED</p><h2 id="result-title">수사 결과</h2><p id="result-copy"></p><div id="result-solution"></div><div id="result-accusations"></div><div class="dialog-actions"><button id="result-restart" class="primary" type="button">다시 플레이</button><a href="../">규칙 확인</a></div></dialog>
+  <script type="module" src="./game.js?v=1.0.0"></script>
+</body>
+</html>
