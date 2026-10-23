@@ -11,7 +11,7 @@ test('Korean game shell exposes difficulty, zones, columns, actions, log, and re
     'lang="ko"', 'name="difficulty"', 'value="easy"', 'value="normal"', 'value="hard"',
     'id="start-game"', 'id="restart-button"', 'id="player-0"', 'id="player-1"',
     'id="column-0"', 'id="column-1"', 'id="column-2"', 'data-column-index="0"',
-    'id="action-controls"', 'id="game-log"', 'id="result-dialog"', 'id="score-breakdown"',
+    'id="toucan-queue"', 'id="action-controls"', 'id="game-log"', 'id="result-dialog"', 'id="score-breakdown"',
     'href="../"', 'href="../../../"'
   ]) assert.ok(html.includes(marker), marker);
 });
@@ -35,6 +35,10 @@ test('controller renders safely from human observation and validates every human
   assert.match(script, /className = 'card-count'/);
   assert.match(script, /textContent = `\$\{cards\.length\}장`/);
   assert.match(script, /groupCards\(player\.faceUp\)\.map\(cardStackElement\)/);
+  assert.match(script, /function renderToucanQueue\(view\)/);
+  assert.match(script, /className = 'toucan-effect'/);
+  assert.match(script, /classList\.add\('active'\)/);
+  assert.match(script, /renderToucanQueue\(view\)/);
 });
 
 test('restart invalidates timers and result dialog cannot be canceled', async () => {
@@ -62,6 +66,8 @@ test('mobile CSS prevents page overflow and keeps controls accessible', async ()
   assert.match(css, /\.card-stack\{/);
   assert.match(css, /\.card-count\{/);
   assert.match(css, /\.card-stack-cards \.card\+\.card\{[^}]*margin-left:\s*-\d+px/);
+  assert.match(css, /\.toucan-queue\{/);
+  assert.match(css, /\.toucan-effect\.active\{/);
 });
 
 test('manual, README, and package check integrate the solo game', async () => {
