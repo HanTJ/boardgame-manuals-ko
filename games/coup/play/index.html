@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#213d34">
+  <meta name="description" content="쿠 Coup를 컴퓨터와 대전하는 한국어 1인용 웹 게임. 쉬움·보통·어려움, 2–6인 기본 규칙.">
+  <title>쿠 Coup 혼자 플레이 | 보드게임 한국어 매뉴얼</title>
+  <link rel="stylesheet" href="./game.css?v=1.0.0">
+</head>
+<body>
+  <header class="game-header"><a href="../">← 한국어 매뉴얼</a><strong>COUP · SOLO</strong><a href="../../../">게임 목록</a></header>
+  <main>
+    <section id="start-screen" class="start-screen">
+      <div class="intro"><p class="kicker">INFLUENCE · BLUFF · SURVIVE</p><h1>COUP<span>쿠 · 혼자 플레이</span></h1><p>두 장의 영향력, 누구도 믿을 수 없는 궁정.<br>허세를 부리고, 도전하고, 마지막까지 살아남으세요.</p><p class="muted">사람 1명과 컴퓨터가 기본 규칙으로 대전합니다. 첫 게임의 선 플레이어는 무작위로 정하며, 2인일 때 선 플레이어만 동전 1개로 시작합니다.</p></div>
+      <form id="setup" class="setup-panel">
+        <h2>궁정에 입장하기</h2>
+        <label for="difficulty">컴퓨터 난이도</label><select id="difficulty"><option value="easy">쉬움 · 자유로운 행동과 가벼운 허세</option><option value="normal" selected>보통 · 보유 능력과 비용을 비교</option><option value="hard">어려움 · 공개 정보 추론과 위험 관리</option></select>
+        <label for="player-count">전체 인원</label><select id="player-count"><option value="2">2명 · 나 + 컴퓨터 1명</option><option value="3" selected>3명 · 나 + 컴퓨터 2명</option><option value="4">4명 · 나 + 컴퓨터 3명</option><option value="5">5명 · 나 + 컴퓨터 4명</option><option value="6">6명 · 나 + 컴퓨터 5명</option></select>
+        <p class="muted">모든 난이도는 같은 규칙을 따릅니다. 컴퓨터는 자기 카드와 공개 정보만 보고 판단합니다.</p>
+        <button id="start-game" class="primary" type="submit">게임 시작</button>
+      </form>
+    </section>
+    <section id="game-screen" class="game-screen" hidden>
+      <header class="status"><div><small id="match-info">보통 · 3인</small><h1 id="turn-title">게임 준비</h1></div><div class="status-controls"><label for="speed" class="sr-only">컴퓨터 진행 속도</label><select id="speed"><option value="700">보통 속도</option><option value="150">빠르게</option><option value="1400">천천히</option></select><button id="restart-button" type="button">새 게임</button></div></header>
+      <div class="board-info"><span id="treasury">금고</span><span id="deck-count">궁정 덱</span><span id="turn-count">차례 1</span></div>
+      <section id="opponents" class="opponents" aria-label="컴퓨터 플레이어"></section>
+      <section class="human-zone"><div class="zone-title"><h2>내 영향력</h2><strong id="human-coins">동전 2개</strong></div><div id="human-cards" class="card-row"></div><p id="human-state" class="muted"></p></section>
+      <section class="decision-panel" aria-labelledby="phase-title"><p class="kicker">YOUR DECISION</p><h2 id="phase-title" tabindex="-1">행동을 선택하세요</h2><p id="phase-help"></p><p id="latest-event" class="latest-event" aria-live="polite"></p><div id="action-controls" class="action-controls"></div><p id="error-message" role="alert"></p></section>
+      <details class="quick-rules"><summary>캐릭터 능력 · 빠른 규칙</summary><ul><li><b>공작:</b> 징세 +3 / 해외 원조 차단</li><li><b>암살자:</b> 동전 3개로 암살 / 대상은 백작부인으로 차단</li><li><b>사령관:</b> 동전 2개 갈취 / 대상은 사령관·대사로 차단</li><li><b>대사:</b> 궁정 덱 2장을 보고 교환 / 갈취 차단</li><li><b>백작부인:</b> 자신을 향한 암살 차단</li><li>소득 +1, 해외 원조 +2, 쿠 비용 7. 차례 시작에 10개 이상이면 쿠 필수.</li><li>캐릭터가 없어도 주장할 수 있지만 도전에 패하면 영향력을 잃습니다.</li></ul><a href="../" target="_blank" rel="noopener noreferrer">전체 한국어 규칙 열기 →</a></details>
+      <details class="log-panel" open><summary>궁정 기록</summary><ol id="game-log"></ol></details>
+    </section>
+    <footer class="game-footer"><p>비공식 팬 게임 · 원작 Rikki Tahta / Indie Boards &amp; Cards</p><details><summary>디지털 진행·정보 보호 안내</summary><p>동시 응답 대신 주장자 다음 좌석부터 시계 방향으로 기회를 줍니다. 행동 주장이 한 번 판정되면 다시 도전하지 않습니다. 해외 원조 차단이 도전에 패하면 원래 원조를 해결합니다. 이는 이 웹 게임의 응답 순서 정책입니다.</p><p>상대의 비공개 카드와 교환 후보는 화면·기록에 출력하지 않습니다. 저장이나 서버 통신 없이 브라우저에서 실행되므로 새로고침하면 게임이 초기화됩니다. 개발자 도구를 통한 실행 메모리 열람까지 방지하는 서버형 게임은 아닙니다.</p></details></footer>
+  </main>
+  <dialog id="restart-dialog" aria-labelledby="restart-title"><h2 id="restart-title">새 게임을 시작할까요?</h2><p>현재 대전은 종료되고 인원과 난이도를 다시 선택합니다.</p><div class="dialog-actions"><button id="keep-playing" type="button">계속 플레이</button><button id="confirm-restart" class="primary" type="button">설정으로 돌아가기</button></div></dialog>
+  <dialog id="result-dialog" aria-labelledby="result-title"><p class="kicker">LAST INFLUENCE</p><h2 id="result-title">게임 종료</h2><p id="result-copy"></p><div class="dialog-actions"><button id="view-board" type="button">기록 보기</button><button id="result-restart" class="primary" type="button">다시 플레이</button></div></dialog>
+  <noscript>이 게임은 JavaScript를 켜야 플레이할 수 있습니다.</noscript>
+  <script type="module" src="./game.js?v=1.0.0"></script>
+</body>
+</html>
