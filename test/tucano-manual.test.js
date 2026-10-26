@@ -45,6 +45,8 @@ test('Tucano 매뉴얼은 점수 유형·조커·종료 처리를 명시한다',
 test('Tucano는 카탈로그와 README에 11번째 매뉴얼로 등록된다', async () => {
   const [catalog, readme] = await Promise.all([read('index.html'), read('README.md')]);
   assert.match(catalog, /href="\.\/games\/tucano\/"/);
-  assert.match(catalog, /<span class="count-badge">12개<\/span>/);
+  const rowCount = [...catalog.matchAll(/class="manual-row"/g)].length;
+  assert.ok(rowCount > 0);
+  assert.ok(catalog.includes(`<span class="count-badge">${rowCount}개</span>`));
   assert.match(readme, /\[Tucano\]\(\.\/games\/tucano\/\)/);
 });

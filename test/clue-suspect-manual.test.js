@@ -46,6 +46,8 @@ test('CLUE Suspect는 카탈로그와 README에 12번째 매뉴얼로 등록된�
   const [catalog, readme] = await Promise.all([read('index.html'), read('README.md')]);
   assert.match(catalog, /href="\.\/games\/clue-suspect\/"/);
   assert.match(catalog, /<div class="manual-number" aria-hidden="true">12<\/div>/);
-  assert.match(catalog, /<span class="count-badge">12개<\/span>/);
+  const rowCount = [...catalog.matchAll(/class="manual-row"/g)].length;
+  assert.ok(rowCount > 0);
+  assert.ok(catalog.includes(`<span class="count-badge">${rowCount}개</span>`));
   assert.match(readme, /\[CLUE Suspect Card Game\]\(\.\/games\/clue-suspect\/\)/);
 });

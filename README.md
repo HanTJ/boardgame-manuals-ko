@@ -16,6 +16,7 @@
 - [Good Face Bad Face](./games/good-face-bad-face/) — Big Potato Games, 2023 영문판 · [1인용 대전 웹 게임](./games/good-face-bad-face/play/)
 - [Tucano](./games/tucano/) — Helvetiq, 2021 영문판 · [1인용 웹 게임](./games/tucano/play/)
 - [CLUE Suspect Card Game](./games/clue-suspect/) — Winning Moves Games·Hasbro, 2021 영문판 · [1인용 웹 게임](./games/clue-suspect/play/)
+- [쿠 (Coup)](./games/coup/) — Indie Boards & Cards·La Mame Games, 제공된 영문 기본판 규칙서 기준
 
 ## 디렉터리 구조
 

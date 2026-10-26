@@ -30,6 +30,8 @@ test('다음 스택 주인의 손패가 비었다면 그 플레이어를 건너�
 test('새 매뉴얼은 카탈로그와 README 구조에서 접근 가능하다', async () => {
   const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
   assert.match(catalog, /href="\.\/games\/good-face-bad-face\/"/);
-  assert.match(catalog, /<span class="count-badge">12개<\/span>/);
+  const rowCount = [...catalog.matchAll(/class="manual-row"/g)].length;
+  assert.ok(rowCount > 0);
+  assert.ok(catalog.includes(`<span class="count-badge">${rowCount}개</span>`));
   assert.match(readme, /games\/good-face-bad-face/);
 });
